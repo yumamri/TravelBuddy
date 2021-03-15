@@ -2,9 +2,9 @@
 Android Application
 
 ## Description : 
-this is a convenient travel partner application to accompany users on their travel keeping all their documents in one place.
+This is a convenient travel partner application to accompany users on their travel keeping all their documents in one place.
 ## Motivation : 
-my motivation is to develop a modern instinctif application for travel. During one summer I was visiting multiple countries and I had tickets from different applications, it was confusing finding the correct application for the situation. I can't wait to go back to traveling after the pandemic.
+My motivation is to develop a modern instinctif application for travel. During one summer I was visiting multiple countries and I had tickets from different applications, it was confusing finding the correct application for the situation. This inconvenience inspired me to develop such application.
 ## MoSCoW : 
 - Must have : 
     - Ability to capture photos
