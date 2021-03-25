@@ -16,6 +16,7 @@ My motivation is to develop a modern instinctif application for travel. During o
     - Offline mode
 - Could have :
     - Download the photos from the cloud
+    - Checklist reminder if checklist isn't completed
     - Travel info of the country
     - Sharing trip system
     - Dark mode
