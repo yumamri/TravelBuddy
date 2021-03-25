@@ -20,5 +20,6 @@ My motivation is to develop a modern instinctif application for travel. During o
     - Travel info of the country
     - Sharing trip system
     - Dark mode
+    - Map of chosen location
 - Won't have :
     - Friend system 
