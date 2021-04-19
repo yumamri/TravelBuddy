@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel;
 
 public class DocumentsViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    DocumentsRepository repository;
 
     public DocumentsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is documents fragment");
+        repository = DocumentsRepository.getInstance();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<String> text() {
+        repository.setText();
+        return repository.getText();
     }
 }

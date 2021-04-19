@@ -9,13 +9,15 @@ public class Trip {
     private Date startDate;
     private Date endDate;
     private ArrayList<Document> documentArrayList;
+    private ArrayList<String> checklist;
 
-    public Trip(String country, String city, Date startDate, Date endDate, ArrayList<Document> documentArrayList) {
+    public Trip(String country, String city, Date startDate, Date endDate, ArrayList<Document> documentArrayList, ArrayList<String> checklist) {
         this.country = country;
         this.city = city;
         this.startDate = startDate;
         this.endDate = endDate;
         this.documentArrayList = documentArrayList;
+        this.checklist = checklist;
     }
 
     public String getCountry() {
@@ -56,5 +58,13 @@ public class Trip {
 
     public void setDocumentArrayList(ArrayList<Document> documentArrayList) {
         this.documentArrayList = documentArrayList;
+    }
+
+    public ArrayList<String> getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(ArrayList<String> checklist) {
+        this.checklist = checklist;
     }
 }

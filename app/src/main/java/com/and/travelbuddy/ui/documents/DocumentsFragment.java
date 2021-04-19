@@ -19,7 +19,7 @@ public class DocumentsFragment extends Fragment {
         DocumentsViewModel documentsViewModel = new ViewModelProvider(this).get(DocumentsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_documents, container, false);
         final TextView textView = root.findViewById(R.id.text_documents);
-        documentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        documentsViewModel.text().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 }
