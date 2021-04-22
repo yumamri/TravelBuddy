@@ -3,6 +3,8 @@ package com.and.travelbuddy.ui.camera;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,11 +26,12 @@ import com.and.travelbuddy.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CameraFragment extends Fragment {
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CameraViewModel cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
@@ -35,60 +39,55 @@ public class CameraFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_camera);
         cameraViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         if (checkPermission()) {
-            dispatchTakePictureIntent();
+            dispatchTakeImageIntent();
         } else {
             requestPermission();
         }
         return root;
     }
 
-    String mCurrentPhotoPath;
 
-    private File createImageFile() throws IOException {
+    String currentImagePath = null;
+    private File getPhotoFile() throws IOException {
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        String date = DateFormat.getDateTimeInstance().format(new Date());
-        File image = File.createTempFile(date, ".jpg", storageDir);
-        mCurrentPhotoPath = image.getAbsolutePath();
+        String date = DateFormat.getDateInstance().format(new Date());
+        String imageName = "jpg_" + date + "_";
+
+        File image = File.createTempFile(imageName, ".jpg", storageDir);
+        currentImagePath = image.getAbsolutePath();
         return image;
     }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photoFile = null;
+    private File imageFile;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    public void dispatchTakeImageIntent() {
+        Intent takeImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
-            photoFile = createImageFile();
+            imageFile = getPhotoFile();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        if (photoFile != null) {
-            //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+        if (takeImageIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takeImageIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
-
-    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
+        Uri imageUri = FileProvider.getUriForFile(getActivity(), "com.and.travelbuddy.ui.fileprovider", imageFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            //Bundle extras = data.getExtras();
-            //Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //mImageView.setImageBitmap(imageBitmap);
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            mediaScanIntent.setData(imageUri);
+            getActivity().sendBroadcast(mediaScanIntent);
             System.out.println("hello");
-            galleryAddPic();
+        } else {
+            super.onActivityResult(requestCode, resultCode, intent);
         }
     }
 
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        getActivity().sendBroadcast(mediaScanIntent);
-    }
     // Defining Permission codes
-    private static final int PERMISSION = 2;
+    final int PERMISSION = 2;
     String[] PERMISSIONS = {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.CAMERA
