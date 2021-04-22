@@ -42,22 +42,6 @@ public class CameraFragment extends Fragment {
         return root;
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        System.out.println("intent " + intent);
-        System.out.println("resultCode " + resultCode);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            //Bundle extras = data.getExtras();
-            //Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //mImageView.setImageBitmap(imageBitmap);
-            System.out.println("activity result?");
-            galleryAddPic();
-        }
-    }
-
     String mCurrentPhotoPath;
 
     private File createImageFile() throws IOException {
@@ -77,8 +61,22 @@ public class CameraFragment extends Fragment {
             ex.printStackTrace();
         }
         if (photoFile != null) {
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+            //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            //Bundle extras = data.getExtras();
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //mImageView.setImageBitmap(imageBitmap);
+            System.out.println("hello");
+            galleryAddPic();
         }
     }
 
