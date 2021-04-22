@@ -30,20 +30,20 @@ public class DocumentsFragment extends Fragment {
         documentsViewModel.text().observe(getViewLifecycleOwner(), textView::setText);
         return root;
 
+//
+//        recyclerViewAgent = root.findViewById(R.id.recycler_view_document);
+//        recyclerViewAgent.hasFixedSize();
+//        recyclerViewAgent.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        recyclerViewAgent = root.findViewById(R.id.recycler_view_document);
-        recyclerViewAgent.hasFixedSize();
-        recyclerViewAgent.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        ArrayList<Document> documentArrayList = new ArrayList<>();
-        documentAdapter = new DocumentAdapter(documentArrayList, this);
-        recyclerViewAgent.setAdapter(documentAdapter);
+//        ArrayList<Document> documentArrayList = new ArrayList<>();
+//        documentAdapter = new DocumentAdapter(documentArrayList, this);
+//        recyclerViewAgent.setAdapter(documentAdapter);
     }
 
-    @Override
-    public void onListItemClick(int index) {
-        int documentIndex = index;
-        Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
-        Toast.makeText(getContext(), document.getTitle(), Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onListItemClick(int index) {
+//        int documentIndex = index;
+//        Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
+//        Toast.makeText(getContext(), document.getTitle(), Toast.LENGTH_SHORT).show();
+//    }
 }

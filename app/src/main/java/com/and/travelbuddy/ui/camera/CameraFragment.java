@@ -45,11 +45,10 @@ public class CameraFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        System.out.println("intent " + intent);
         System.out.println("resultCode " + resultCode);
-        getActivity().setResult(resultCode,data);
-        System.out.println("resultCode after setResult " + resultCode);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             //Bundle extras = data.getExtras();
             //Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -64,11 +63,7 @@ public class CameraFragment extends Fragment {
     private File createImageFile() throws IOException {
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         String date = DateFormat.getDateTimeInstance().format(new Date());
-        File image = File.createTempFile(
-                date,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+        File image = File.createTempFile(date, ".jpg", storageDir);
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
