@@ -3,6 +3,7 @@ package com.and.travelbuddy.ui.camera;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,7 +11,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
 
@@ -30,32 +30,26 @@ import java.util.Date;
 public class CameraFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CameraViewModel cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
         View root = inflater.inflate(R.layout.fragment_camera, container, false);
-        final TextView textView = root.findViewById(R.id.text_camera);
-        cameraViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         requestPermission();
         return root;
     }
 
-
-    String currentImagePath = null;
+    private ImageView imageView;
+    private String currentImagePath = null;
     private File imageFile;
+    private Bitmap imageBitmap;
 
-    private File getPhotoFile() throws IOException {
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        String date = DateFormat.getDateInstance().format(new Date());
-        String imageName = "jpg_" + date + "_";
-        if(!storageDir.exists())
-        {
-            storageDir.mkdirs();
-        }
-        File image = File.createTempFile(imageName, ".jpg", storageDir);
-        currentImagePath = image.getAbsolutePath();
-        return image;
-    }
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    public void dispatchTakeImageIntent() {
+    // Defining Permission codes
+    final int PERMISSION = 2;
+    String[] PERMISSIONS = {
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.CAMERA
+    };
+
+    /** Launch camera */
+    public void dispatchTakePictureIntent() {
         Intent takeImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
             imageFile = getPhotoFile();
@@ -77,27 +71,36 @@ public class CameraFragment extends Fragment {
 
     }
 
+    /** Create a File for saving an image or video */
+    private File getPhotoFile() throws IOException {
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        String date = DateFormat.getDateInstance().format(new Date());
+        String imageName = "jpg_" + date + "_";
+        if(!storageDir.exists())
+        {
+            storageDir.mkdirs();
+        }
+        File image = File.createTempFile(imageName, ".jpg", storageDir);
+        currentImagePath = image.getAbsolutePath();
+        return image;
+    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            super.onActivityResult(requestCode, resultCode, data);
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             File file = new File(currentImagePath);
             Uri imageUri = Uri.fromFile(file);
             mediaScanIntent.setData(imageUri);
             getActivity().sendBroadcast(mediaScanIntent);
-        } else {
-            super.onActivityResult(requestCode, resultCode, intent);
+//            Bundle extras = data.getExtras();
+//            imageBitmap = (Bitmap) extras.get("data");
+//            imageView.setImageBitmap(imageBitmap);
         }
     }
 
-    // Defining Permission codes
-    final int PERMISSION = 2;
-    String[] PERMISSIONS = {
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.CAMERA
-    };
-
-    // Function to check and request permission
+    /** Function to check and request permission */
     public void requestPermission() {
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED) {
@@ -105,7 +108,7 @@ public class CameraFragment extends Fragment {
                         "Permission already granted",
                         Toast.LENGTH_SHORT)
                         .show();
-                dispatchTakeImageIntent();
+                dispatchTakePictureIntent();
             }
             else {
                 ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION);
