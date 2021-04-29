@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,10 +36,8 @@ public class CameraFragment extends Fragment {
         return root;
     }
 
-    private ImageView imageView;
     private String currentImagePath = null;
     private File imageFile;
-    private Bitmap imageBitmap;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     // Defining Permission codes
@@ -94,9 +93,9 @@ public class CameraFragment extends Fragment {
             Uri imageUri = Uri.fromFile(file);
             mediaScanIntent.setData(imageUri);
             getActivity().sendBroadcast(mediaScanIntent);
-//            Bundle extras = data.getExtras();
-//            imageBitmap = (Bitmap) extras.get("data");
-//            imageView.setImageBitmap(imageBitmap);
+            ImageView imageView = getActivity().findViewById(R.id.image_document);
+            Bitmap bitmap = BitmapFactory.decodeFile(currentImagePath);
+            imageView.setImageBitmap(bitmap);
         }
     }
 
