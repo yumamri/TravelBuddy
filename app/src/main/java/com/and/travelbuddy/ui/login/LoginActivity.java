@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signIn(View v) {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
 
         Intent signInIntent = AuthUI.getInstance()
