@@ -20,30 +20,27 @@ import com.and.travelbuddy.R;
 import java.util.ArrayList;
 
 public class DocumentsFragment extends Fragment {
-    RecyclerView recyclerViewAgent;
+    RecyclerView recyclerViewDocument;
     DocumentAdapter documentAdapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DocumentsViewModel documentsViewModel = new ViewModelProvider(this).get(DocumentsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_documents, container, false);
-        final TextView textView = root.findViewById(R.id.text_document_title);
-        documentsViewModel.text().observe(getViewLifecycleOwner(), textView::setText);
+
+        recyclerViewDocument = root.findViewById(R.id.recycler_view_document);
+        recyclerViewDocument.hasFixedSize();
+        recyclerViewDocument.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        ArrayList<Document> documentArrayList = new ArrayList<>();
+        documentAdapter = new DocumentAdapter(documentArrayList, this::onListItemClick);
+        recyclerViewDocument.setAdapter(documentAdapter);
+
         return root;
-
-//
-//        recyclerViewAgent = root.findViewById(R.id.recycler_view_document);
-//        recyclerViewAgent.hasFixedSize();
-//        recyclerViewAgent.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-//        ArrayList<Document> documentArrayList = new ArrayList<>();
-//        documentAdapter = new DocumentAdapter(documentArrayList, this);
-//        recyclerViewAgent.setAdapter(documentAdapter);
     }
 
-//    @Override
-//    public void onListItemClick(int index) {
-//        int documentIndex = index;
-//        Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
-//        Toast.makeText(getContext(), document.getTitle(), Toast.LENGTH_SHORT).show();
-//    }
+    public void onListItemClick(int index) {
+        int documentIndex = index;
+        Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
+        Toast.makeText(getActivity(), document.getTitle(), Toast.LENGTH_SHORT).show();
+    }
 }
