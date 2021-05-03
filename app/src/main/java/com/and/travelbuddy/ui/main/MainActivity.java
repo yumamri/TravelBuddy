@@ -2,6 +2,7 @@ package com.and.travelbuddy.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,5 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private void startLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    public void signOut() {
+        viewModel.signOut();
     }
 }
