@@ -13,9 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
-import com.and.travelbuddy.ui.main.MainActivity;
-import com.and.travelbuddy.ui.main.MainActivityViewModel;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeFragment extends Fragment {
 
@@ -25,17 +22,10 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         final Button signOut = root.findViewById(R.id.button_sign_out);
-        signOut.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(getActivity(),
-                        "Hello",
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+        signOut.setOnClickListener(v -> Toast.makeText(getActivity(),
+                "Hello",
+                Toast.LENGTH_SHORT)
+                .show());
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
