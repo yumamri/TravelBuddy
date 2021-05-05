@@ -1,4 +1,4 @@
-package com.and.travelbuddy.ui.documents;
+package com.and.travelbuddy.ui.document;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +12,12 @@ import com.and.travelbuddy.R;
 
 import java.util.ArrayList;
 
-public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.ViewHolder> {
+public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private final ArrayList<Document> documentArrayList;
     final private OnListItemClickListener onListItemClickListener;
 
 
-    public DocumentsAdapter(ArrayList<Document> documentArrayList, OnListItemClickListener onListItemClickListener) {
+    public DocumentAdapter(ArrayList<Document> documentArrayList, OnListItemClickListener onListItemClickListener) {
         this.documentArrayList = documentArrayList;
         this.onListItemClickListener = onListItemClickListener;
     }
@@ -41,7 +41,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
     }
 
     public interface OnListItemClickListener {
-        void onListItemClick(int agent);
+        void onListItemClick(int document);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

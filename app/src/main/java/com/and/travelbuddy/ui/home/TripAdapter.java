@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
-import com.and.travelbuddy.ui.home.TripAdapter;
 
 import java.util.ArrayList;
 
-public class TripAdapter {
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     private final ArrayList<Trip> tripArrayList;
     final private TripAdapter.OnListItemClickListener onListItemClickListener;
 
@@ -30,7 +29,7 @@ public class TripAdapter {
     }
 
     public void onBindViewHolder(TripAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.title.setText(tripArrayList.get(position).getCity());
+        viewHolder.title.setText(tripArrayList.get(position).getCountry());
     }
 
     public int getItemCount() {
@@ -42,7 +41,7 @@ public class TripAdapter {
     }
 
     public interface OnListItemClickListener {
-        void onListItemClick(int agent);
+        void onListItemClick(int trip);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

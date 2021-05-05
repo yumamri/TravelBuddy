@@ -1,13 +1,13 @@
-package com.and.travelbuddy.ui.documents;
+package com.and.travelbuddy.ui.document;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class DocumentsRepository {
-    private static DocumentsRepository instance;
+public class DocumentRepository {
+    private static DocumentRepository instance;
     private MutableLiveData<String> text;
 
-    public DocumentsRepository() {
+    public DocumentRepository() {
         text = new MutableLiveData<>();
     }
 
@@ -19,9 +19,9 @@ public class DocumentsRepository {
         text.setValue("This is documents fragment");
     }
 
-    public static synchronized DocumentsRepository getInstance() {
+    public static synchronized DocumentRepository getInstance() {
         if (instance == null) {
-            instance = new DocumentsRepository();
+            instance = new DocumentRepository();
         }
         return instance;
     }

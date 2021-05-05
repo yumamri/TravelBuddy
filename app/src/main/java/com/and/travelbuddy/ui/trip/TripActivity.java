@@ -25,9 +25,9 @@ public class TripActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = binding.tabs;
+        TabLayout tabs = binding.tabsTrips;
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = binding.fab;
+        FloatingActionButton fab = binding.fabTripPlus;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

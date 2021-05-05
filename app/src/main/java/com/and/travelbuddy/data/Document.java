@@ -7,6 +7,10 @@ public class Document {
     private Tag category;
     private String uri;
 
+    public Document(String title) {
+        this.title = title;
+    }
+
     public Document(String title, Tag category, String uri) {
         this.title = title;
         this.category = category;

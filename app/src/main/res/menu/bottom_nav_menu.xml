@@ -6,9 +6,9 @@
         android:title="@string/title_camera" />
 
     <item
-        android:id="@+id/navigation_documents"
-        android:icon="@drawable/ic_documents"
-        android:title="@string/title_documents" />
+        android:id="@+id/navigation_document"
+        android:icon="@drawable/ic_document"
+        android:title="@string/title_document" />
 
     <item
         android:id="@+id/navigation_home"

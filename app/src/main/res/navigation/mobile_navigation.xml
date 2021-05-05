@@ -17,10 +17,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_documents"
-        android:name="com.and.travelbuddy.ui.documents.DocumentsFragment"
-        android:label="@string/title_documents"
-        tools:layout="@layout/fragment_documents" />
+        android:id="@+id/navigation_document"
+        android:name="com.and.travelbuddy.ui.document.DocumentFragment"
+        android:label="@string/title_document"
+        tools:layout="@layout/fragment_document" />
 
     <fragment
         android:id="@+id/navigation_profile"

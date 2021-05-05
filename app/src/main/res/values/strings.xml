@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TravelBuddy</string>
     <string name="title_camera">Camera</string>
-    <string name="title_documents">Documents</string>
+    <string name="title_document">Document</string>
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="image_document_description">TODO</string>
@@ -19,6 +19,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="button_profile_sign_out">Sign out</string>
     <string name="title_activity_trip">TripActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_checklist">Checklist</string>
+    <string name="tab_text_document">Document</string>
 </resources>
