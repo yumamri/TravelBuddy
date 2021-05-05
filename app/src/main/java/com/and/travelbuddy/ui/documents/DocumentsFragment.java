@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.and.travelbuddy.Document;
+import com.and.travelbuddy.data.Document;
 import com.and.travelbuddy.R;
 
 import java.util.ArrayList;
 
 public class DocumentsFragment extends Fragment {
     RecyclerView recyclerViewDocument;
-    DocumentAdapter documentAdapter;
+    DocumentsAdapter documentsAdapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DocumentsViewModel documentsViewModel = new ViewModelProvider(this).get(DocumentsViewModel.class);
@@ -32,15 +30,15 @@ public class DocumentsFragment extends Fragment {
         recyclerViewDocument.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         ArrayList<Document> documentArrayList = new ArrayList<>();
-        documentAdapter = new DocumentAdapter(documentArrayList, this::onListItemClick);
-        recyclerViewDocument.setAdapter(documentAdapter);
+        documentsAdapter = new DocumentsAdapter(documentArrayList, this::onListItemClick);
+        recyclerViewDocument.setAdapter(documentsAdapter);
 
         return root;
     }
 
     public void onListItemClick(int index) {
         int documentIndex = index;
-        Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
+        Document document = documentsAdapter.getDocumentArrayList().get(documentIndex);
         Toast.makeText(getActivity(), document.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

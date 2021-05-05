@@ -1,4 +1,6 @@
-package com.and.travelbuddy;
+package com.and.travelbuddy.data;
+
+import com.and.travelbuddy.data.Tag;
 
 public class Document {
     private String title;

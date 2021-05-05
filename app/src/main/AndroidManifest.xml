@@ -22,6 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelBuddy">
         <activity
+            android:name=".ui.trip.TripActivity"
+            android:label="@string/title_activity_trip"
+            android:theme="@style/Theme.TravelBuddy.NoActionBar"></activity>
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity

@@ -1,4 +1,4 @@
-package com.and.travelbuddy;
+package com.and.travelbuddy.data;
 
 public enum Tag {
     TICKET,

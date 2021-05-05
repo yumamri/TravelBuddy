@@ -1,4 +1,4 @@
-package com.and.travelbuddy;
+package com.and.travelbuddy.data;
 
 import java.util.ArrayList;
 import java.util.Date;

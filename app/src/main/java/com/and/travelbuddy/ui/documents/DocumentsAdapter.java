@@ -7,17 +7,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.and.travelbuddy.Document;
+import com.and.travelbuddy.data.Document;
 import com.and.travelbuddy.R;
 
 import java.util.ArrayList;
 
-public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
+public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.ViewHolder> {
     private final ArrayList<Document> documentArrayList;
     final private OnListItemClickListener onListItemClickListener;
 
 
-    public DocumentAdapter(ArrayList<Document> documentArrayList, OnListItemClickListener onListItemClickListener) {
+    public DocumentsAdapter(ArrayList<Document> documentArrayList, OnListItemClickListener onListItemClickListener) {
         this.documentArrayList = documentArrayList;
         this.onListItemClickListener = onListItemClickListener;
     }
