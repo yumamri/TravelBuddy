@@ -21,4 +21,7 @@
     <string name="title_activity_trip">TripActivity</string>
     <string name="tab_text_checklist">Checklist</string>
     <string name="tab_text_document">Document</string>
+    <string name="dialog_document_header">Choose a document</string>
+    <string name="dialog_document_title">Document name</string>
+    <string name="dialog_document_category">Category</string>
 </resources>
