@@ -8,8 +8,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.and.travelbuddy.ui.main.MainActivity;
 import com.and.travelbuddy.R;
+import com.and.travelbuddy.ui.main.MainActivity;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.Arrays;

@@ -2,8 +2,6 @@ package com.and.travelbuddy.data;
 
 import android.graphics.Bitmap;
 
-import com.and.travelbuddy.data.Tag;
-
 public class Document {
     private String title;
     private Bitmap bitmap;

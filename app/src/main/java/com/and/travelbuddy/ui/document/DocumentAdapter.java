@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.and.travelbuddy.data.Document;
 import com.and.travelbuddy.R;
+import com.and.travelbuddy.data.Document;
 
 import java.util.ArrayList;
 
