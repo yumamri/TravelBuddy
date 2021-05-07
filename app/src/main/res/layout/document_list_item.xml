@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.4"
                 tools:srcCompat="@tools:sample/avatars"
-                android:contentDescription="@string/image_document_description" />
+                android:contentDescription="@string/description" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

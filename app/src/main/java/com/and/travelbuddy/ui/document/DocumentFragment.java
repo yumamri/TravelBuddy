@@ -25,12 +25,7 @@ public class DocumentFragment extends Fragment {
     RecyclerView recyclerViewDocument;
     DocumentAdapter documentAdapter;
 
-    public static final int PICKFILE_RESULT_CODE = 1;
-
     private FloatingActionButton btnChooseFile;
-
-    private Uri fileUri;
-    private String filePath;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,25 +44,11 @@ public class DocumentFragment extends Fragment {
         btnChooseFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-                chooseFile.setType("*/*");
-                chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
+                DocumentDialogFragment documentDialogFragment = new DocumentDialogFragment();
+                documentDialogFragment.show(getFragmentManager(), "Add Document");
             }
         });
         return root;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case PICKFILE_RESULT_CODE:
-                if (resultCode == -1) {
-                    fileUri = data.getData();
-                    filePath = fileUri.getPath();
-                }
-                break;
-        }
     }
 
     public void onListItemClick(int index) {
