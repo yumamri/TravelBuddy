@@ -22,11 +22,11 @@ public class DocumentDialogFragment extends DialogFragment {
     private TextView textView;
     private Button button;
 
-    public interface OnInputListener {
-        void sendInput(String input);
-    }
-
-    public
+//    public interface OnInputListener {
+//        void sendInput(String input);
+//    }
+//
+//    public OnInputListener onInputListener;
 
     public static final int PICKFILE_RESULT_CODE = 1;
 
@@ -79,12 +79,14 @@ public class DocumentDialogFragment extends DialogFragment {
         }
     }
 
-    @Override
-    public void onAttach (Context context) {
-        super.onAttach(context);
-        try {
-            mI
-        }
-    }
+//    @Override
+//    public void onAttach (Context context) {
+//        super.onAttach(context);
+//        try {
+//            onInputListener = (OnInputListener) getActivity();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

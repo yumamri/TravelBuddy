@@ -1,5 +1,7 @@
 package com.and.travelbuddy.ui.document;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Document;
+import com.and.travelbuddy.data.Tag;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 public class DocumentFragment extends Fragment {
     RecyclerView recyclerViewDocument;
     DocumentAdapter documentAdapter;
+    ArrayList<Document> documentArrayList;
 
     private FloatingActionButton btnChooseFile;
 
@@ -33,7 +37,7 @@ public class DocumentFragment extends Fragment {
         recyclerViewDocument.hasFixedSize();
         recyclerViewDocument.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ArrayList<Document> documentArrayList = new ArrayList<>();
+        documentArrayList = new ArrayList<>();
         documentAdapter = new DocumentAdapter(documentArrayList, this::onListItemClick);
         recyclerViewDocument.setAdapter(documentAdapter);
 
@@ -53,4 +57,10 @@ public class DocumentFragment extends Fragment {
         Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
         Toast.makeText(getActivity(), document.getTitle(), Toast.LENGTH_SHORT).show();
     }
+
+//    @Override
+//    public void sendInput(String input) {
+//        Bitmap bitmap = BitmapFactory.decodeFile(input);
+//        documentArrayList.add(new Document(input, bitmap, Tag.IDENTITY));
+//    }
 }
