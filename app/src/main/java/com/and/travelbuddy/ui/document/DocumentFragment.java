@@ -2,13 +2,16 @@ package com.and.travelbuddy.ui.document;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,9 +22,11 @@ import com.and.travelbuddy.data.Document;
 import com.and.travelbuddy.data.Tag;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class DocumentFragment extends Fragment {
+public class DocumentFragment extends Fragment implements DocumentDialogFragment.DialogListener {
     RecyclerView recyclerViewDocument;
     DocumentAdapter documentAdapter;
     ArrayList<Document> documentArrayList;
@@ -46,7 +51,7 @@ public class DocumentFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DocumentDialogFragment documentDialogFragment = new DocumentDialogFragment();
-                documentDialogFragment.show(getFragmentManager(), "Add Document");
+                documentDialogFragment.show(getChildFragmentManager(), "Add Document");
             }
         });
         return root;
@@ -58,9 +63,27 @@ public class DocumentFragment extends Fragment {
         Toast.makeText(getActivity(), document.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    public void sendInput(String input) {
-//        Bitmap bitmap = BitmapFactory.decodeFile(input);
-//        documentArrayList.add(new Document(input, bitmap, Tag.IDENTITY));
-//    }
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String fileName, Uri uri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+            documentArrayList.add(new Document(fileName, bitmap, Tag.IDENTITY));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+
+        if (fragment instanceof DocumentDialogFragment) {
+            ((DocumentDialogFragment) fragment).listener = this;
+        }
+    }
 }

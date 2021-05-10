@@ -3,6 +3,7 @@ package com.and.travelbuddy.ui.document;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,11 +48,12 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView title;
+        ImageView picture;
 
         ViewHolder(View itemView) {
             super(itemView);
-
             title = itemView.findViewById(R.id.text_document_title);
+            picture = itemView.findViewById(R.id.image_document);
             itemView.setOnClickListener(this);
 
         }

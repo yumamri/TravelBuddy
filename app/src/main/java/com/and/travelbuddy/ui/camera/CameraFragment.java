@@ -94,7 +94,6 @@ public class CameraFragment extends Fragment {
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             File file = new File(currentImagePath);
             Uri imageUri = Uri.fromFile(file);
-            Toast.makeText(getActivity(), imageUri.toString(), Toast.LENGTH_SHORT).show();
             mediaScanIntent.setData(imageUri);
             getActivity().sendBroadcast(mediaScanIntent);
 
