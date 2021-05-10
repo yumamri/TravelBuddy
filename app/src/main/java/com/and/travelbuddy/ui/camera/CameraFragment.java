@@ -75,8 +75,8 @@ public class CameraFragment extends Fragment {
     /** Create a File for saving an image or video */
     private File getPhotoFile() throws IOException {
         storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        String date = DateFormat.getDateInstance().format(new Date());
-        fileName = "jpg_" + date + "_";
+        String date = DateFormat.getDateTimeInstance().format(new Date());
+        fileName = date;
         if(!storageDir.exists())
         {
             storageDir.mkdirs();
@@ -94,6 +94,7 @@ public class CameraFragment extends Fragment {
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             File file = new File(currentImagePath);
             Uri imageUri = Uri.fromFile(file);
+            Toast.makeText(getActivity(), imageUri.toString(), Toast.LENGTH_SHORT).show();
             mediaScanIntent.setData(imageUri);
             getActivity().sendBroadcast(mediaScanIntent);
 

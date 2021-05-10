@@ -2,20 +2,27 @@ package com.and.travelbuddy.ui.document;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
 import com.and.travelbuddy.R;
+
+import java.io.File;
 
 public class DocumentDialogFragment extends DialogFragment {
 
@@ -58,6 +65,7 @@ public class DocumentDialogFragment extends DialogFragment {
             @Override
             public void onClick (View view) {
                 Intent chooseFile = new Intent (Intent.ACTION_GET_CONTENT);
+                chooseFile.setType("*/*");
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
             }
@@ -71,22 +79,26 @@ public class DocumentDialogFragment extends DialogFragment {
         switch (requestCode) {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == -1) {
-                    Uri fileUri = data.getData();
-                    String filePath = fileUri.getPath();
-                    textView.setText(filePath);
+                    Uri returnUri = data.getData();
+                    Cursor returnCursor = getActivity().getContentResolver().query(returnUri, null, null, null, null);
+                    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    returnCursor.moveToFirst();
+                    String fileName = returnCursor.getString(nameIndex);
+                    Toast.makeText(getActivity(), fileName, Toast.LENGTH_LONG).show();
+                    textView.setText(fileName);
                 }
                 break;
         }
     }
 
-//    @Override
-//    public void onAttach (Context context) {
-//        super.onAttach(context);
-//        try {
-//            onInputListener = (OnInputListener) getActivity();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void onAttach (Context context) {
+        super.onAttach(context);
+        try {
+            onInputListener = (OnInputListener) getActivity();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
