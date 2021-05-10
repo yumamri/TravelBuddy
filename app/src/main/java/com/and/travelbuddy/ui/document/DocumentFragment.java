@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class DocumentFragment extends Fragment implements DocumentDialogFragment.DialogListener {
     RecyclerView recyclerViewDocument;
     DocumentAdapter documentAdapter;
-    ArrayList<Document> documentArrayList;
+    ArrayList<Document> documentArrayList = new ArrayList<>();
 
     private FloatingActionButton btnChooseFile;
 
@@ -42,7 +42,6 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         recyclerViewDocument.hasFixedSize();
         recyclerViewDocument.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        documentArrayList = new ArrayList<>();
         documentAdapter = new DocumentAdapter(documentArrayList, this::onListItemClick);
         recyclerViewDocument.setAdapter(documentAdapter);
 
@@ -68,6 +67,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
             documentArrayList.add(new Document(fileName, bitmap, Tag.IDENTITY));
+            documentAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
