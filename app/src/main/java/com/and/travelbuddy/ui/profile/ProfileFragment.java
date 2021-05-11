@@ -20,9 +20,9 @@ public class ProfileFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final TextView textView = root.findViewById(R.id.text_profile);
+        final TextView textView = root.findViewById(R.id.profile_fragment_text_name);
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        Button buttonSignOut = root.findViewById(R.id.button_sign_out);
+        Button buttonSignOut = root.findViewById(R.id.profile_fragment_button_signout);
         buttonSignOut.setOnClickListener(v -> ((MainActivity)getActivity()).signOut());
         return root;
     }

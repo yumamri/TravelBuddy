@@ -2,8 +2,6 @@ package com.and.travelbuddy.ui.document;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,10 +9,9 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -23,11 +20,10 @@ import com.and.travelbuddy.R;
 public class DocumentDialogFragment extends DialogFragment {
 
     private TextView textView;
-    private Button button;
+    private ImageButton button;
 
     public interface DialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String string, Uri uri);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogPositiveClick(DialogFragment dialog, String string, Uri uri);
     }
 
     public String fileName;
@@ -43,38 +39,33 @@ public class DocumentDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_document, null);
-        Spinner spinner = view.findViewById(R.id.dialog_spinner);
-        textView = view.findViewById(R.id.dialog_document_name);
+        // TODO: add category
+        Spinner spinner = view.findViewById(R.id.document_dialog_spinner_category);
+
+        /** Data handling between dialog and parent */
+        textView = view.findViewById(R.id.document_dialog_text_name);
         builder.setView(view)
                 .setTitle(R.string.dialog_document_header)
                 // Add action buttons
-                .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogPositiveClick(DocumentDialogFragment.this, fileName, uri);
-                        DocumentDialogFragment.this.getDialog().dismiss();
-                    }
+                .setPositiveButton(R.string.add, (dialog, id) -> {
+                    listener.onDialogPositiveClick(DocumentDialogFragment.this, fileName, uri);
+                    DocumentDialogFragment.this.getDialog().dismiss();
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        DocumentDialogFragment.this.getDialog().cancel();
-                    }
-                });
+                .setNegativeButton(R.string.cancel, (dialog, id) -> DocumentDialogFragment.this.getDialog().cancel());
 
-        button = view.findViewById(R.id.dialog_document_button);
-        button.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick (View view) {
-                Intent chooseFile = new Intent (Intent.ACTION_GET_CONTENT);
-                chooseFile.setType("*/*");
-                chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
-            }
+        /** File chooser to add the documents */
+        button = view.findViewById(R.id.document_dialog_button_plus);
+        button.setOnClickListener (view1 -> {
+            Intent chooseFile = new Intent (Intent.ACTION_GET_CONTENT);
+            chooseFile.setType("*/*");
+            chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+            startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
         });
         // Create the AlertDialog object and return it
         return builder.create();
     }
 
+    /** File name and Uri to send back */
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

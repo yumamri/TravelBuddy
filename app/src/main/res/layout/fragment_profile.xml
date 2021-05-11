@@ -7,7 +7,7 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <TextView
-        android:id="@+id/text_profile"
+        android:id="@+id/profile_fragment_text_name"
         android:layout_width="249dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.332" />
 
     <View
-        android:id="@+id/rectangle_profile"
+        android:id="@+id/profile_fragment_rectangle"
         android:layout_width="match_parent"
         android:layout_height="336dp"
         android:background="@drawable/rectangle"
@@ -31,7 +31,7 @@
         tools:layout_editor_absoluteX="1dp" />
 
     <Button
-        android:id="@+id/button_sign_out"
+        android:id="@+id/profile_fragment_button_signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
@@ -39,10 +39,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_fragment_rectangle" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/profile_fragment_image_pp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

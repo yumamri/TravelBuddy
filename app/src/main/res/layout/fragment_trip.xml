@@ -8,7 +8,7 @@
     tools:context=".ui.trip.TripFragment">
 
     <TextView
-        android:id="@+id/section_label"
+        android:id="@+id/trip_fragment_text_section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"

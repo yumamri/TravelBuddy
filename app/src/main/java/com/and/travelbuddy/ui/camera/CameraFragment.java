@@ -97,7 +97,7 @@ public class CameraFragment extends Fragment {
             mediaScanIntent.setData(imageUri);
             getActivity().sendBroadcast(mediaScanIntent);
 
-            ImageView imageView = getActivity().findViewById(R.id.image_document);
+            ImageView imageView = getActivity().findViewById(R.id.camera_fragment_image_preview);
             Bitmap bitmap = BitmapFactory.decodeFile(currentImagePath);
             imageView.setImageBitmap(bitmap);
 

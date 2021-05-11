@@ -15,7 +15,7 @@
             android:layout_height="158dp">
 
             <TextView
-                android:id="@+id/text_document_title"
+                android:id="@+id/document_item_text_title"
                 android:layout_width="224dp"
                 android:layout_height="33dp"
                 android:layout_centerInParent="true"
@@ -27,7 +27,7 @@
                 app:layout_constraintVertical_bias="0.504" />
 
             <ImageView
-                android:id="@+id/image_document"
+                android:id="@+id/camera_fragment_image_preview"
                 android:layout_width="125dp"
                 android:layout_height="118dp"
                 app:layout_constraintBottom_toBottomOf="parent"

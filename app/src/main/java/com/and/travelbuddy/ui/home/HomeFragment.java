@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,28 +22,24 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
     RecyclerView recyclerViewTrip;
     TripAdapter tripAdapter;
+    ArrayList<Trip> tripArrayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        FloatingActionButton fab = root.findViewById(R.id.fab_home_plus);
+        FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTripActivity();
+                tripArrayList.add(new Trip());
+                tripAdapter.notifyDataSetChanged();
             }
         });
 
-        recyclerViewTrip = root.findViewById(R.id.recycler_view_trip);
+        recyclerViewTrip = root.findViewById(R.id.home_fragment_recycler_view_trip);
         recyclerViewTrip.hasFixedSize();
         recyclerViewTrip.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        ArrayList<Trip> tripArrayList = new ArrayList<>();
-        tripArrayList.add(new Trip("France"));
-        tripArrayList.add(new Trip("Cambodia"));
-        tripArrayList.add(new Trip("Japan"));
-        tripArrayList.add(new Trip("Belgium"));
         tripAdapter = new TripAdapter(tripArrayList, this::onListItemClick);
         recyclerViewTrip.setAdapter(tripAdapter);
 
@@ -52,12 +47,13 @@ public class HomeFragment extends Fragment {
     }
 
     public void onListItemClick(int index) {
-        int tripIndex = index;
-        Trip trip = tripAdapter.getTripArrayList().get(tripIndex);
-        Toast.makeText(getActivity(), trip.getCity(), Toast.LENGTH_SHORT).show();
+        Trip trip = tripAdapter.getTripArrayList().get(index);
+        startTripActivity(trip);
     }
 
-    private void startTripActivity() {
-        startActivity(new Intent(getActivity(), TripActivity.class));
+    private void startTripActivity(Trip trip) {
+        Intent intent = new Intent(getActivity(), TripActivity.class);
+        //intent.putExtra("TRIP", (Parcelable) trip);
+        startActivity(intent);
     }
 }

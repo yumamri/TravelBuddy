@@ -1,7 +1,6 @@
 package com.and.travelbuddy.ui.document;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,8 +21,6 @@ import com.and.travelbuddy.data.Document;
 import com.and.travelbuddy.data.Tag;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class DocumentFragment extends Fragment implements DocumentDialogFragment.DialogListener {
@@ -38,20 +35,18 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         DocumentViewModel documentViewModel = new ViewModelProvider(this).get(DocumentViewModel.class);
         View root = inflater.inflate(R.layout.fragment_document, container, false);
 
-        recyclerViewDocument = root.findViewById(R.id.recycler_view_document);
+        recyclerViewDocument = root.findViewById(R.id.document_fragment_recycler_view);
         recyclerViewDocument.hasFixedSize();
         recyclerViewDocument.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         documentAdapter = new DocumentAdapter(documentArrayList, this::onListItemClick);
         recyclerViewDocument.setAdapter(documentAdapter);
 
-        btnChooseFile = root.findViewById(R.id.fab_document_plus);
-        btnChooseFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DocumentDialogFragment documentDialogFragment = new DocumentDialogFragment();
-                documentDialogFragment.show(getChildFragmentManager(), "Add Document");
-            }
+        /** Dialog */
+        btnChooseFile = root.findViewById(R.id.document_fragment_fab_plus);
+        btnChooseFile.setOnClickListener(view -> {
+            DocumentDialogFragment documentDialogFragment = new DocumentDialogFragment();
+            documentDialogFragment.show(getChildFragmentManager(), "Add Document");
         });
         return root;
     }
@@ -62,6 +57,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         Toast.makeText(getActivity(), document.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
+    /** Adding to the list view */
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String fileName, Uri uri) {
         try {
@@ -71,11 +67,6 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
     }
 
     @Override

@@ -11,8 +11,7 @@ public class Trip {
     private ArrayList<Document> documentArrayList;
     private ArrayList<String> checklist;
 
-    public Trip(String country) {
-        this.country = country;
+    public Trip() {
     }
 
     public Trip(String country, String city, Date startDate, Date endDate, ArrayList<Document> documentArrayList, ArrayList<String> checklist) {

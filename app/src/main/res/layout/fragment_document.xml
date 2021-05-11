@@ -5,15 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".ui.document.DocumentFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_document"
+        android:id="@+id/document_fragment_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_document_plus"
+        android:id="@+id/document_fragment_fab_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

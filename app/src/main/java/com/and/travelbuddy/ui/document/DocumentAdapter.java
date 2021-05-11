@@ -31,6 +31,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.title.setText(documentArrayList.get(position).getTitle());
+        viewHolder.picture.setImageBitmap(documentArrayList.get(position).getBitmap());
     }
 
     public int getItemCount() {
@@ -52,8 +53,8 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.text_document_title);
-            picture = itemView.findViewById(R.id.image_document);
+            title = itemView.findViewById(R.id.document_item_text_title);
+            picture = itemView.findViewById(R.id.camera_fragment_image_preview);
             itemView.setOnClickListener(this);
 
         }

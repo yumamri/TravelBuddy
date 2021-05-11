@@ -51,7 +51,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         ViewHolder(View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.text_trip_title);
+            title = itemView.findViewById(R.id.trip_item_text_country);
             itemView.setOnClickListener(this);
 
         }

@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="@string/dialog_document_title" />
     <TextView
-        android:id="@+id/dialog_document_name"
+        android:id="@+id/document_dialog_text_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -24,8 +24,8 @@
         android:gravity="center"
         android:background="@color/white" />
 
-    <Button
-        android:id="@+id/dialog_document_button"
+    <ImageButton
+        android:id="@+id/document_dialog_button_plus"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -42,7 +42,7 @@
         android:gravity="center"
         android:text="@string/dialog_document_category" />
     <Spinner
-        android:id="@+id/dialog_spinner"
+        android:id="@+id/document_dialog_spinner_category"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"

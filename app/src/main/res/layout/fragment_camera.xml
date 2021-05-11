@@ -7,7 +7,7 @@
     tools:context=".ui.camera.CameraFragment">
 
     <ImageView
-        android:id="@+id/image_document"
+        android:id="@+id/camera_fragment_image_preview"
         android:layout_width="369dp"
         android:layout_height="686dp"
         android:contentDescription="@string/description"
