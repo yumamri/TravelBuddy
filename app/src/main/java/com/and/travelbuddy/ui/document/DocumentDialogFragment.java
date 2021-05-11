@@ -45,7 +45,6 @@ public class DocumentDialogFragment extends DialogFragment {
         /** Data handling between dialog and parent */
         textView = view.findViewById(R.id.document_dialog_text_name);
         builder.setView(view)
-                .setTitle(R.string.dialog_document_header)
                 // Add action buttons
                 .setPositiveButton(R.string.add, (dialog, id) -> {
                     listener.onDialogPositiveClick(DocumentDialogFragment.this, fileName, uri);

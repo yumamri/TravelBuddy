@@ -14,7 +14,6 @@
     <string name="tab_text_checklist">Checklist</string>
     <string name="tab_text_document">Document</string>
 
-    <string name="dialog_document_header">Choose a document</string>
     <string name="dialog_document_title">Document name</string>
     <string name="dialog_document_category">Category</string>
 
@@ -24,6 +23,7 @@
     <string name="description">description</string>
     <string name="country">Country</string>
     <string name="trip_date">Date</string>
+
     <string name="dialog_trip_country_title">Edit Country</string>
     <string name="dialog_trip_country_hint">Type in country here</string>
 </resources>

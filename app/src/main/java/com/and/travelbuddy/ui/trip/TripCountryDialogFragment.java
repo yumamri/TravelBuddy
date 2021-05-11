@@ -16,10 +16,10 @@ public class TripCountryDialogFragment extends DialogFragment {
     private EditText editText;
 
     public interface DialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String string);
+        void onDialogPositiveClick(DialogFragment dialog, String string);
     }
 
-    public TripCountryDialogFragment.DialogListener listener;
+    public DialogListener listener;
 
     @Override
     public Dialog onCreateDialog (Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class TripCountryDialogFragment extends DialogFragment {
 
         /** Data handling between dialog and parent */
         editText = view.findViewById(R.id.trip_dialog_edit_country);
+
         builder.setView(view)
-                .setTitle(R.string.dialog_document_header)
                 // Add action buttons
                 .setPositiveButton(R.string.add, (dialog, id) -> {
                     listener.onDialogPositiveClick(TripCountryDialogFragment.this, editText.getText().toString());
