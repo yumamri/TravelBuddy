@@ -6,21 +6,11 @@ import java.util.Date;
 public class Trip {
     private String country;
     private String city;
-    private Date startDate;
-    private Date endDate;
+    private String date;
     private ArrayList<Document> documentArrayList;
     private ArrayList<String> checklist;
 
     public Trip() {
-    }
-
-    public Trip(String country, String city, Date startDate, Date endDate, ArrayList<Document> documentArrayList, ArrayList<String> checklist) {
-        this.country = country;
-        this.city = city;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.documentArrayList = documentArrayList;
-        this.checklist = checklist;
     }
 
     public String getCountry() {
@@ -39,20 +29,12 @@ public class Trip {
         this.city = city;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public ArrayList<Document> getDocumentArrayList() {

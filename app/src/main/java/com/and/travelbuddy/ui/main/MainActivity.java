@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        //checkIfSignedIn();
+        checkIfSignedIn();
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.main_activity_nav);
         // Passing each menu ID as a set of Ids because each
@@ -51,16 +51,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public LiveData<FirebaseUser> getCurrentUser(){
-        return viewModel.getCurrentUser();
-    }
-
     private void startLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
-    }
-
-    public void signOut() {
-        viewModel.signOut();
     }
 }

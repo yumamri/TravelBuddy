@@ -2,6 +2,7 @@ package com.and.travelbuddy.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     private void startTripActivity(Trip trip) {
         Intent intent = new Intent(getActivity(), TripActivity.class);
-        //intent.putExtra("TRIP", (Parcelable) trip);
+        intent.putExtra("TRIP_KEY", (Parcelable) trip);
         startActivity(intent);
     }
 }

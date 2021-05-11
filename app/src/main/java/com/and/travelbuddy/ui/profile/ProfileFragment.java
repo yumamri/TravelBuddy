@@ -23,7 +23,7 @@ public class ProfileFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.profile_fragment_text_name);
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         Button buttonSignOut = root.findViewById(R.id.profile_fragment_button_signout);
-        buttonSignOut.setOnClickListener(v -> ((MainActivity)getActivity()).signOut());
+        //buttonSignOut.setOnClickListener(v -> ((MainActivity)getActivity()).signOut());
         return root;
     }
 }
