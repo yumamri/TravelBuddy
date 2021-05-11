@@ -21,7 +21,7 @@ public class TripFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private PageViewModel pageViewModel;
+    private TripPageViewModel tripPageViewModel;
     private FragmentTripBinding binding;
 
     public static TripFragment newInstance(int index) {
@@ -35,12 +35,12 @@ public class TripFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
+        tripPageViewModel = new ViewModelProvider(this).get(TripPageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-        pageViewModel.setIndex(index);
+        tripPageViewModel.setIndex(index);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class TripFragment extends Fragment {
         binding = FragmentTripBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.sectionLabel;
-        pageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.tripFragmentTextSectionLabel;
+        tripPageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

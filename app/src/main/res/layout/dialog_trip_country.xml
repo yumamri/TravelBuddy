@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_blue_bg"
+    tools:context=".ui.trip.TripCountryDialogFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:text="@string/dialog_trip_country_title" />
+    <EditText
+        android:id="@+id/trip_dialog_edit_country"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:autofillHints="@string/dialog_trip_country_hint" />
+
+</LinearLayout>
