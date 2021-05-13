@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
-import com.and.travelbuddy.ui.main.MainActivity;
 
 public class ProfileFragment extends Fragment {
 

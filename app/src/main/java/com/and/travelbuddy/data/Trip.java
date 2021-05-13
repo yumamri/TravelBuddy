@@ -1,7 +1,6 @@
 package com.and.travelbuddy.data;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Trip {
     private String country;

@@ -2,7 +2,6 @@ package com.and.travelbuddy.ui.trip;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,23 +12,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.databinding.ActivityTripBinding;
-import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 public class TripActivity extends AppCompatActivity implements TripCountryDialogFragment.DialogListener {
 
     private ActivityTripBinding binding;
-    Trip trip = getIntent().getExtras().getParcelable("TRIP_KEY");
+    //Trip trip = getIntent().getExtras().getParcelable("TRIP_KEY");
     private TextView country;
     private TextView date;
 
@@ -50,7 +46,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         FloatingActionButton fab = binding.tripFabPlus;
 
         date = binding.tripActivityTextDate;
-        date.setText(trip.getDate());
+        //date.setText(trip.getDate());
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +74,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
                         String dateString = startDate + " - " + endDate;
 
                         date.setText(dateString);
-                        trip.setDate(dateString);
+                        //trip.setDate(dateString);
                     }
                 });
                 dateRangePicker.show(getSupportFragmentManager(), "Select dates");
@@ -86,7 +82,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         });
 
         country = binding.tripActivityTextCountry;
-        country.setText(trip.getCountry());
+        //country.setText(trip.getCountry());
         country.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +97,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String string) {
         country.setText(string);
-        trip.setCity(string);
+        //trip.setCity(string);
     }
 
     @Override

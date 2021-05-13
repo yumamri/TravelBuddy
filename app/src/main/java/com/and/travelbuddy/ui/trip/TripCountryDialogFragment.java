@@ -22,7 +22,7 @@ public class TripCountryDialogFragment extends DialogFragment {
     public DialogListener listener;
 
     @Override
-    public Dialog onCreateDialog (Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();

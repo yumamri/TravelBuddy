@@ -8,10 +8,11 @@ public class TripRepository {
     private DatabaseReference myRef;
     private TripLiveData trip;
 
-    private TripRepository(){}
+    private TripRepository() {
+    }
 
     public static synchronized TripRepository getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new TripRepository();
         return instance;
     }

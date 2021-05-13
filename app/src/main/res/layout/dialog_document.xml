@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/light_blue_bg"
-    tools:context=".ui.document.DocumentDialogFragment" >
+    tools:context=".ui.document.DocumentDialogFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         android:textSize="15sp"
         android:gravity="center"
         android:text="@string/dialog_document_title" />
+
     <TextView
         android:id="@+id/document_dialog_text_name"
         android:layout_width="match_parent"
@@ -41,6 +42,7 @@
         android:textSize="15sp"
         android:gravity="center"
         android:text="@string/dialog_document_category" />
+
     <Spinner
         android:id="@+id/document_dialog_spinner_category"
         android:layout_width="match_parent"

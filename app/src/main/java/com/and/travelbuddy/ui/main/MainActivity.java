@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,10 +14,13 @@ import androidx.navigation.ui.NavigationUI;
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +38,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance();
     }
 
     private void checkIfSignedIn() {
-        viewModel.getCurrentUser().observe(this, user -> {
-            if (user != null) {
-                String message = "Welcome " + user.getDisplayName();
-                Toast.makeText(this,
-                        message,
-                        Toast.LENGTH_SHORT)
-                        .show();
-            } else
-                startLoginActivity();
-        });
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String message = "Welcome " + currentUser.getDisplayName();
+            Toast.makeText(this,
+                    message,
+                    Toast.LENGTH_SHORT)
+                    .show();
+        } else
+            startLoginActivity();
     }
 
     private void startLoginActivity() {

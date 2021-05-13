@@ -50,7 +50,9 @@ public class CameraFragment extends Fragment {
             android.Manifest.permission.CAMERA
     };
 
-    /** Launch camera */
+    /**
+     * Launch camera
+     */
     public void dispatchTakePictureIntent() {
         Intent takeImageIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         try {
@@ -72,16 +74,17 @@ public class CameraFragment extends Fragment {
 
     }
 
-    /** Create a File for saving an image or video */
+    /**
+     * Create a File for saving an image or video
+     */
     private File getPhotoFile() throws IOException {
         storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         String date = DateFormat.getDateTimeInstance().format(new Date());
         fileName = date;
-        if(!storageDir.exists())
-        {
+        if (!storageDir.exists()) {
             storageDir.mkdirs();
         }
-        File image = File.createTempFile(fileName, ".jpg", storageDir);
+        File image = File.createTempFile(fileName, ".png", storageDir);
         currentImagePath = image.getAbsolutePath();
         return image;
     }
@@ -106,7 +109,9 @@ public class CameraFragment extends Fragment {
         }
     }
 
-    /** Function to check and request permission */
+    /**
+     * Function to check and request permission
+     */
     public void requestPermission() {
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED) {
@@ -115,8 +120,7 @@ public class CameraFragment extends Fragment {
                         Toast.LENGTH_SHORT)
                         .show();
                 dispatchTakePictureIntent();
-            }
-            else {
+            } else {
                 ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION);
             }
         }

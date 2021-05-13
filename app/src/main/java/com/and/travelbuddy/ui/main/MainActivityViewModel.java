@@ -11,16 +11,13 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivityViewModel extends AndroidViewModel {
     private final UserRepository userRepository;
 
-    public MainActivityViewModel(Application app){
+    public MainActivityViewModel(Application app) {
         super(app);
         userRepository = UserRepository.getInstance(app);
     }
 
-    public LiveData<FirebaseUser> getCurrentUser(){
+    public LiveData<FirebaseUser> getCurrentUser() {
         return userRepository.getCurrentUser();
     }
 
-    public void signOut() {
-        userRepository.signOut();
-    }
 }

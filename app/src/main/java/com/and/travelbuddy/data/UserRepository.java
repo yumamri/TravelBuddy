@@ -18,7 +18,7 @@ public class UserRepository {
     }
 
     public static synchronized UserRepository getInstance(Application app) {
-        if(instance == null)
+        if (instance == null)
             instance = new UserRepository(app);
         return instance;
     }

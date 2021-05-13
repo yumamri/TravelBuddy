@@ -1,15 +1,21 @@
 package com.and.travelbuddy.data;
 
-import android.graphics.Bitmap;
 
 public class Document {
     private String title;
-    private Bitmap bitmap;
+    private String image;
     private Tag category;
 
-    public Document(String title, Bitmap bitmap, Tag category) {
+    public Document() {}
+
+    public Document(String title, String image) {
         this.title = title;
-        this.bitmap = bitmap;
+        this.image = image;
+    }
+
+    public Document(String title, String image, Tag category) {
+        this.title = title;
+        this.image = image;
         this.category = category;
     }
 
@@ -21,12 +27,12 @@ public class Document {
         this.title = title;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public String getImage() {
+        return image;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public void setImage(String bitmap) {
+        this.image = bitmap;
     }
 
     public Tag getCategory() {

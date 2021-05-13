@@ -1,5 +1,10 @@
 package com.and.travelbuddy.ui.document;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Document;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,7 +37,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         viewHolder.title.setText(documentArrayList.get(position).getTitle());
-        viewHolder.picture.setImageBitmap(documentArrayList.get(position).getBitmap());
+        Picasso.get().load(documentArrayList.get(position).getImage()).into(viewHolder.picture);
     }
 
     public int getItemCount() {

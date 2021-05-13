@@ -12,6 +12,7 @@
         android:textSize="15sp"
         android:gravity="center"
         android:text="@string/dialog_trip_country_title" />
+
     <EditText
         android:id="@+id/trip_dialog_edit_country"
         android:layout_width="match_parent"

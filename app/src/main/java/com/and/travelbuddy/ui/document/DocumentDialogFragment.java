@@ -34,7 +34,7 @@ public class DocumentDialogFragment extends DialogFragment {
     public static final int PICKFILE_RESULT_CODE = 1;
 
     @Override
-    public Dialog onCreateDialog (Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -54,8 +54,8 @@ public class DocumentDialogFragment extends DialogFragment {
 
         /** File chooser to add the documents */
         button = view.findViewById(R.id.document_dialog_button_plus);
-        button.setOnClickListener (view1 -> {
-            Intent chooseFile = new Intent (Intent.ACTION_GET_CONTENT);
+        button.setOnClickListener(view1 -> {
+            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
             chooseFile.setType("*/*");
             chooseFile = Intent.createChooser(chooseFile, "Choose a file");
             startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
@@ -64,9 +64,11 @@ public class DocumentDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    /** File name and Uri to send back */
+    /**
+     * File name and Uri to send back
+     */
     @Override
-    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == -1) {

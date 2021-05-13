@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     private void startTripActivity(Trip trip) {
         Intent intent = new Intent(getActivity(), TripActivity.class);
-        intent.putExtra("TRIP_KEY", (Parcelable) trip);
+//        intent.putExtra("TRIP_KEY", (Parcelable) trip);
         startActivity(intent);
     }
 }
