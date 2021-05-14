@@ -23,6 +23,7 @@ import com.and.travelbuddy.data.Document;
 import com.and.travelbuddy.data.Tag;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -141,19 +142,20 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String fileName, Uri uri) {
         StorageReference storageReferenceUpload = storageReference.child(fileName);
-        storageReferenceUpload.putFile(uri)
-                .addOnFailureListener(exception -> {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(getActivity(), fileName + " failed", Toast.LENGTH_SHORT).show();
-                    exception.printStackTrace();
-                })
-                .addOnSuccessListener(taskSnapshot -> {
-                    // Handle succsesful uploads
-                    Toast.makeText(getActivity(), fileName + " succeeded", Toast.LENGTH_SHORT).show();
-                    String downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                    Document document = new Document(fileName, downloadUrl);
-                    databaseReference.push().setValue(document);
-                });
+        UploadTask uploadTask = storageReferenceUpload.putFile(uri);
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            if (taskSnapshot.getMetadata() != null) {
+                if (taskSnapshot.getMetadata().getReference() != null) {
+                    Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                    result.addOnSuccessListener(uriSuccess -> {
+                        String imageUrl = uriSuccess.toString();
+                        Toast.makeText(getActivity(), fileName + " succeeded", Toast.LENGTH_SHORT).show();
+                        Document document = new Document(fileName, imageUrl);
+                        databaseReference.push().setValue(document);
+                    });
+                }
+            }
+        });
 
     }
 

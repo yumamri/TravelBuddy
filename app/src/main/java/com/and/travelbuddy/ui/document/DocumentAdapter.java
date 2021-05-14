@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,17 +30,21 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         this.onListItemClickListener = onListItemClickListener;
     }
 
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.document_list_item, parent, false);
         return new ViewHolder(view);
     }
 
+    @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.title.setText(documentArrayList.get(position).getTitle());
-        Picasso.get().load(documentArrayList.get(position).getImage()).into(viewHolder.picture);
+        Document document = documentArrayList.get(position);
+        viewHolder.title.setText(document.getTitle());
+        Picasso.get().load(document.getImage()).fit().centerInside().into(viewHolder.picture);
     }
 
+    @Override
     public int getItemCount() {
         return documentArrayList.size();
     }
@@ -60,9 +65,8 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.document_item_text_title);
-            picture = itemView.findViewById(R.id.camera_fragment_image_preview);
+            picture = itemView.findViewById(R.id.document_item_image_preview);
             itemView.setOnClickListener(this);
-
         }
 
         @Override
