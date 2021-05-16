@@ -95,8 +95,8 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
             String key = trip.getKey();
             values = trip.toMap();
             Map<String, Object> tripUpdates = new HashMap<>();
-            tripUpdates.put(key, values);
-            tripUpdates.put(key, values);
+            tripUpdates.put(key + "/country/", values);
+            tripUpdates.put(key + "/date/", values);
             databaseReference.updateChildren(tripUpdates);
             finish();
         });

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Trip implements Serializable {
-    private int index;
     private String key;
     private String image;
     private String country;
@@ -22,16 +21,6 @@ public class Trip implements Serializable {
     public Trip(String country, String date) {
         this.country = country;
         this.date = date;
-    }
-
-    @Exclude
-    public int getIndex() {
-        return index;
-    }
-
-    @Exclude
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     @Exclude

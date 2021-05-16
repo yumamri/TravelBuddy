@@ -33,10 +33,16 @@ public class HomeFragment extends Fragment {
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
     ArrayList<Trip> tripArrayList = new ArrayList<>();
+    ArrayList<String> keysArrayList = new ArrayList<>();
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
         fab.setOnClickListener(view -> {
@@ -56,19 +62,22 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+                String key = dataSnapshot.getKey();
                 Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setKey(dataSnapshot.getKey());
-                trip.setIndex(tripArrayList.indexOf(trip));
+                trip.setKey(key);
                 tripArrayList.add(trip);
                 tripAdapter.notifyDataSetChanged();
 
+                keysArrayList.add(key);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
                 Trip newTrip = dataSnapshot.getValue(Trip.class);
-                tripArrayList.set(newTrip.getIndex(), newTrip);
+                String key = dataSnapshot.getKey();
+                int index = keysArrayList.indexOf(key);
+                tripArrayList.set(index, newTrip);
                 tripAdapter.notifyDataSetChanged();
             }
 
