@@ -2,10 +2,11 @@ package com.and.travelbuddy.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,12 +18,20 @@ import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.ui.trip.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+    private static final String TAG = "TRIP_DATABASE";
     RecyclerView recyclerViewTrip;
     TripAdapter tripAdapter;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
     ArrayList<Trip> tripArrayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -30,12 +39,10 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tripArrayList.add(new Trip());
-                tripAdapter.notifyDataSetChanged();
-            }
+        fab.setOnClickListener(view -> {
+            Trip trip = new Trip(getString(R.string.edit_me), getString(R.string.edit_me));
+            databaseReference.push().setValue(trip);
+            tripAdapter.notifyDataSetChanged();
         });
 
         recyclerViewTrip = root.findViewById(R.id.home_fragment_recycler_view_trip);
@@ -44,6 +51,46 @@ public class HomeFragment extends Fragment {
         tripAdapter = new TripAdapter(tripArrayList, this::onListItemClick);
         recyclerViewTrip.setAdapter(tripAdapter);
 
+        /** Trip list */
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+                Trip trip = dataSnapshot.getValue(Trip.class);
+                trip.setKey(dataSnapshot.getKey());
+                trip.setIndex(tripArrayList.indexOf(trip));
+                tripArrayList.add(trip);
+                tripAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
+                Trip newTrip = dataSnapshot.getValue(Trip.class);
+                tripArrayList.set(newTrip.getIndex(), newTrip);
+                tripAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
+                tripArrayList.remove(dataSnapshot.getKey());
+                tripAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+                Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "postTrips:onCancelled", databaseError.toException());
+                Toast.makeText(getActivity(), "Failed to load trips.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
         return root;
     }
 
@@ -54,7 +101,7 @@ public class HomeFragment extends Fragment {
 
     private void startTripActivity(Trip trip) {
         Intent intent = new Intent(getActivity(), TripActivity.class);
-//        intent.putExtra("TRIP_KEY", (Parcelable) trip);
+        intent.putExtra("TRIP_KEY", trip);
         startActivity(intent);
     }
 }

@@ -1,15 +1,55 @@
 package com.and.travelbuddy.data;
 
-import java.util.ArrayList;
+import com.google.firebase.database.Exclude;
 
-public class Trip {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Trip implements Serializable {
+    private int index;
+    private String key;
+    private String image;
     private String country;
-    private String city;
     private String date;
     private ArrayList<Document> documentArrayList;
     private ArrayList<String> checklist;
 
     public Trip() {
+    }
+
+    public Trip(String country, String date) {
+        this.country = country;
+        this.date = date;
+    }
+
+    @Exclude
+    public int getIndex() {
+        return index;
+    }
+
+    @Exclude
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getCountry() {
@@ -18,14 +58,6 @@ public class Trip {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getDate() {
@@ -50,5 +82,14 @@ public class Trip {
 
     public void setChecklist(ArrayList<String> checklist) {
         this.checklist = checklist;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("country", country);
+        result.put("date", date);
+
+        return result;
     }
 }

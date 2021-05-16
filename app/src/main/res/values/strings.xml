@@ -27,4 +27,5 @@
     <string name="dialog_trip_country_title">Edit Country</string>
     <string name="dialog_trip_country_hint">Type in country here</string>
     <string name="edit_me">Edit me</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

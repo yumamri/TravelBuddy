@@ -29,7 +29,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     }
 
     public void onBindViewHolder(TripAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.title.setText(tripArrayList.get(position).getCountry());
+        viewHolder.country.setText(tripArrayList.get(position).getCountry());
+        viewHolder.date.setText(tripArrayList.get(position).getDate());
     }
 
     public int getItemCount() {
@@ -46,12 +47,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView title;
+        TextView country;
+        TextView date;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.trip_item_text_country);
+            country = itemView.findViewById(R.id.trip_item_text_country);
+            date = itemView.findViewById(R.id.trip_item_text_date);
             itemView.setOnClickListener(this);
 
         }

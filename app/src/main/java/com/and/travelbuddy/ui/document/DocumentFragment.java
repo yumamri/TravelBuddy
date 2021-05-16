@@ -99,7 +99,6 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
                 document.setKey(dataSnapshot.getKey());
                 documentArrayList.add(document);
                 documentAdapter.notifyDataSetChanged();
-                // ...
             }
 
             @Override
