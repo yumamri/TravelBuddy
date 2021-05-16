@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,9 +32,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -49,8 +54,6 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
 
     ArrayList<Document> documentArrayList = new ArrayList<>();
 
-    private FloatingActionButton btnChooseFile;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DocumentViewModel documentViewModel = new ViewModelProvider(this).get(DocumentViewModel.class);
@@ -63,8 +66,24 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         documentAdapter = new DocumentAdapter(documentArrayList, this::onListItemClick);
         recyclerViewDocument.setAdapter(documentAdapter);
 
+        /** Swipe to delete */
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder, @NonNull @NotNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Document swipedDocument = documentArrayList.get(viewHolder.getAdapterPosition());
+                String key = swipedDocument.getKey();
+                documentArrayList.remove(swipedDocument);
+                databaseReference.child(key).removeValue();
+            }
+        }).attachToRecyclerView(recyclerViewDocument);
+
         /** Dialog */
-        btnChooseFile = root.findViewById(R.id.document_fragment_fab_plus);
+        FloatingActionButton btnChooseFile = root.findViewById(R.id.document_fragment_fab_plus);
         btnChooseFile.setOnClickListener(view -> {
             DocumentDialogFragment documentDialogFragment = new DocumentDialogFragment();
             documentDialogFragment.show(getChildFragmentManager(), "Add Document");
@@ -75,9 +94,9 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-
                 // A new document has been added, add it to the displayed list
                 Document document = dataSnapshot.getValue(Document.class);
+                document.setKey(dataSnapshot.getKey());
                 documentArrayList.add(document);
                 documentAdapter.notifyDataSetChanged();
                 // ...
@@ -86,38 +105,21 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-
-                // A document has changed, use the key to determine if we are displaying this
-                // document and if so displayed the changed document.
-                Document newDocument = dataSnapshot.getValue(Document.class);
-                String documentKey = dataSnapshot.getKey();
                 documentAdapter.notifyDataSetChanged();
-                // ...
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-
                 // A document has changed, use the key to determine if we are displaying this
                 // document and if so remove it.
-                String documentKey = dataSnapshot.getKey();
-                documentArrayList.remove(documentKey);
+                documentArrayList.remove(dataSnapshot.getKey());
                 documentAdapter.notifyDataSetChanged();
-
-                // ...
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
-
-                // A document has changed position, use the key to determine if we are
-                // displaying this document and if so move it.
-                Document movedDocument = dataSnapshot.getValue(Document.class);
-                String documentKey = dataSnapshot.getKey();
-
-                // ...
             }
 
             @Override
@@ -149,7 +151,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
                     Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
                     result.addOnSuccessListener(uriSuccess -> {
                         String imageUrl = uriSuccess.toString();
-                        Toast.makeText(getActivity(), fileName + " succeeded", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), fileName + " uploaded successfully", Toast.LENGTH_SHORT).show();
                         Document document = new Document(fileName, imageUrl);
                         databaseReference.push().setValue(document);
                     });
