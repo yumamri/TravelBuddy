@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +16,7 @@ import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.ui.trip.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
         fab.setOnClickListener(view -> {
-            Trip trip = new Trip(getString(R.string.edit_me), getString(R.string.edit_me));
+            Trip trip = new Trip(getString(R.string.edit_me), getString(R.string.edit_me), "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg");
             databaseReference.push().setValue(trip);
             tripAdapter.notifyDataSetChanged();
         });
@@ -94,8 +94,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(TAG, "postTrips:onCancelled", databaseError.toException());
-                Toast.makeText(getActivity(), "Failed to load trips.",
-                        Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), R.string.failed_trips, Snackbar.LENGTH_SHORT)
+                        .show();
+
             }
         });
         return root;

@@ -31,4 +31,7 @@
     <string name="confirm">Confirm</string>
     <string name="dialog_trip_image_title">Edit Image</string>
     <string name="dialog_trip_image_hint">Paste image link here</string>
+    <string name="permission_already_granted">Permission already granted</string>
+    <string name="failed_documents">Failed to load documents</string>
+    <string name="failed_trips">Failed to load trips</string>
 </resources>

@@ -15,11 +15,11 @@ public class TripCountryDialogFragment extends DialogFragment {
 
     private EditText editText;
 
-    public interface DialogListener {
-        void onDialogPositiveClick(DialogFragment dialog, String string);
+    public interface DialogCountryListener {
+        void onDialogCountryPositiveClick(DialogFragment dialog, String string);
     }
 
-    public DialogListener listener;
+    public DialogCountryListener countryListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class TripCountryDialogFragment extends DialogFragment {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.confirm, (dialog, id) -> {
-                    listener.onDialogPositiveClick(TripCountryDialogFragment.this, editText.getText().toString());
+                    countryListener.onDialogCountryPositiveClick(TripCountryDialogFragment.this, editText.getText().toString());
                     TripCountryDialogFragment.this.getDialog().dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> TripCountryDialogFragment.this.getDialog().cancel());

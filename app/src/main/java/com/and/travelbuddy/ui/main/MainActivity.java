@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             String message = "Welcome " + currentUser.getDisplayName();
             Toast.makeText(this,
                     message,
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_LONG)
                     .show();
         } else
             startLoginActivity();

@@ -16,9 +16,10 @@ public class Trip implements Serializable {
     public Trip() {
     }
 
-    public Trip(String country, String date) {
+    public Trip(String country, String date, String image) {
         this.country = country;
         this.date = date;
+        this.image = image;
     }
 
     @Exclude

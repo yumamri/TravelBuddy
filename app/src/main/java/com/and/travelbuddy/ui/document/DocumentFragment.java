@@ -20,6 +20,7 @@ import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Document;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -114,8 +115,8 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(TAG, "postDocuments:onCancelled", databaseError.toException());
-                Toast.makeText(getActivity(), "Failed to load documents.",
-                        Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), R.string.failed_documents, Snackbar.LENGTH_SHORT)
+                        .show();
             }
         });
         return root;
@@ -140,7 +141,8 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
                     Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
                     result.addOnSuccessListener(uriSuccess -> {
                         String imageUrl = uriSuccess.toString();
-                        Toast.makeText(getActivity(), fileName + " uploaded successfully", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), fileName + " uploaded successfully", Snackbar.LENGTH_SHORT)
+                                .show();
                         Document document = new Document(fileName, imageUrl);
                         databaseReference.push().setValue(document);
                     });

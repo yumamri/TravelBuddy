@@ -15,11 +15,11 @@ public class TripImageDialogFragment extends DialogFragment {
 
     private EditText editText;
 
-    public interface DialogListener {
-        void onDialogPositiveClick(DialogFragment dialog, String string);
+    public interface DialogImageListener {
+        void onDialogImagePositiveClick(DialogFragment dialog, String string);
     }
 
-    public DialogListener listener;
+    public DialogImageListener imageListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class TripImageDialogFragment extends DialogFragment {
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.confirm, (dialog, id) -> {
-                    listener.onDialogPositiveClick(TripImageDialogFragment.this, editText.getText().toString());
+                    imageListener.onDialogImagePositiveClick(TripImageDialogFragment.this, editText.getText().toString());
                     TripImageDialogFragment.this.getDialog().dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> TripImageDialogFragment.this.getDialog().cancel());

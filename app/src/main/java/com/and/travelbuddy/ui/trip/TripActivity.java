@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class TripActivity extends AppCompatActivity implements TripCountryDialogFragment.DialogListener {
+public class TripActivity extends AppCompatActivity implements TripCountryDialogFragment.DialogCountryListener, TripImageDialogFragment.DialogImageListener {
 
     private static final String TAG = "TRIP_UPDATE";
     private ActivityTripBinding binding;
@@ -135,8 +135,14 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String string) {
+    public void onDialogCountryPositiveClick(DialogFragment dialog, String string) {
         country.setText(string);
+    }
+
+    @Override
+    public void onDialogImagePositiveClick(DialogFragment dialog, String string) {
+        Picasso.get().load(string).fit().centerInside().into(image);
+        trip.setImage(string);
     }
 
     @Override
@@ -144,7 +150,11 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         super.onAttachFragment(fragment);
 
         if (fragment instanceof TripCountryDialogFragment) {
-            ((TripCountryDialogFragment) fragment).listener = this;
+            ((TripCountryDialogFragment) fragment).countryListener = this;
+        }
+        if (fragment instanceof TripImageDialogFragment) {
+            ((TripImageDialogFragment) fragment).imageListener = this;
         }
     }
+
 }
