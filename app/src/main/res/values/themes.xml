@@ -24,6 +24,7 @@
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
+
     <style name="Theme.TravelBuddy.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

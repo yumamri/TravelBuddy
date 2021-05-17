@@ -1,7 +1,7 @@
 package com.and.travelbuddy.ui.trip;
 
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,13 +13,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.databinding.ActivityTripBinding;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +29,7 @@ import java.util.TimeZone;
 
 public class TripActivity extends AppCompatActivity implements TripCountryDialogFragment.DialogListener {
 
+    private static final String TAG = "TRIP_UPDATE";
     private ActivityTripBinding binding;
     private TextView country;
     private TextView date;
@@ -77,7 +78,6 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
                 String dateString = startDate + " - " + endDate;
 
                 date.setText(dateString);
-                trip.setDate(dateString);
             });
             dateRangePicker.show(getSupportFragmentManager(), "Select dates");
         });
@@ -91,21 +91,37 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         });
 
         efab.setOnClickListener(view -> {
-            /** Save information */
-            String key = trip.getKey();
-            values = trip.toMap();
-            Map<String, Object> tripUpdates = new HashMap<>();
-            tripUpdates.put(key + "/country/", values);
-            tripUpdates.put(key + "/date/", values);
-            databaseReference.updateChildren(tripUpdates);
+            /** Save new information */
+            updateUser();
             finish();
         });
+    }
+
+    private void updateUser() {
+        databaseReference.child("Trips").child(trip.getKey())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        Map<String, Object> postValues = new HashMap<String, Object>();
+                                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                            postValues.put(snapshot.getKey(), snapshot.getValue());
+                                                        }
+                                                        postValues.put("country", country.getText().toString());
+                                                        postValues.put("date", date.getText().toString());
+                                                        databaseReference.child(trip.getKey()).updateChildren(postValues);
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                        Log.d(TAG, "onCancelled:" + databaseError);
+                                                    }
+                                                }
+                );
     }
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String string) {
         country.setText(string);
-        trip.setCountry(string);
     }
 
     @Override

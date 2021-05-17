@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,7 +66,6 @@ public class HomeFragment extends Fragment {
                 trip.setKey(key);
                 tripArrayList.add(trip);
                 tripAdapter.notifyDataSetChanged();
-
                 keysArrayList.add(key);
             }
 

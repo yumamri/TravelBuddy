@@ -54,5 +54,5 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/description"
-        app:icon="@android:drawable/ic_menu_save"/>
+        app:icon="@android:drawable/ic_menu_save" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
