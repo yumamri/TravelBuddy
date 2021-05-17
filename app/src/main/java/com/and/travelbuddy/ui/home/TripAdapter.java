@@ -3,12 +3,14 @@ package com.and.travelbuddy.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,8 +31,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     }
 
     public void onBindViewHolder(TripAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.country.setText(tripArrayList.get(position).getCountry());
-        viewHolder.date.setText(tripArrayList.get(position).getDate());
+        Trip trip = tripArrayList.get(position);
+        viewHolder.country.setText(trip.getCountry());
+        viewHolder.date.setText(trip.getDate());
+        Picasso.get().load(trip.getImage()).fit().centerInside().into(viewHolder.image);
     }
 
     public int getItemCount() {
@@ -49,12 +53,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
         TextView country;
         TextView date;
+        ImageView image;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             country = itemView.findViewById(R.id.trip_item_text_country);
             date = itemView.findViewById(R.id.trip_item_text_date);
+            image = itemView.findViewById(R.id.trip_item_image);
             itemView.setOnClickListener(this);
 
         }

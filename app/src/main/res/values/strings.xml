@@ -28,4 +28,7 @@
     <string name="dialog_trip_country_hint">Type in country here</string>
     <string name="edit_me">Edit me</string>
     <string name="save_changes">Save Changes</string>
+    <string name="confirm">Confirm</string>
+    <string name="dialog_trip_image_title">Edit Image</string>
+    <string name="dialog_trip_image_hint">Paste image link here</string>
 </resources>

@@ -5,38 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.trip.TripActivity">
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/trip_fab_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/description"
+        app:srcCompat="@android:drawable/ic_menu_upload" />
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.TravelBuddy.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/trip_activity_text_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/country"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textSize="35sp" />
-
-        <TextView
-            android:id="@+id/trip_activity_text_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="@dimen/appbar_padding"
-            android:paddingBottom="@dimen/appbar_padding"
-            android:text="@string/trip_date"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/trip_activity_tabs"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_light_blue" />
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/trip_activity_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:contentDescription="@string/description" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/trip_activity_text_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:minHeight="?actionBarSize"
+                    android:padding="@dimen/appbar_padding"
+                    android:text="@string/country"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/trip_activity_text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/appbar_padding"
+                    android:paddingBottom="@dimen/appbar_padding"
+                    android:text="@string/trip_date"
+                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/trip_activity_tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/primary_light_blue" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,10 +74,12 @@
         android:id="@+id/trip_activity_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+    </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/trip_fab_plus"
+        android:id="@+id/trip_efab_save"
         android:text="@string/save_changes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,4 +87,5 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/description"
         app:icon="@android:drawable/ic_menu_save" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

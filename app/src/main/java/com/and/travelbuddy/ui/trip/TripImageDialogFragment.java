@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.and.travelbuddy.R;
 
-public class TripCountryDialogFragment extends DialogFragment {
+public class TripImageDialogFragment extends DialogFragment {
 
     private EditText editText;
 
@@ -26,18 +26,18 @@ public class TripCountryDialogFragment extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_trip_country, null);
+        final View view = inflater.inflate(R.layout.dialog_trip_image, null);
 
         /** Data handling between dialog and parent */
-        editText = view.findViewById(R.id.trip_dialog_edit_country);
+        editText = view.findViewById(R.id.trip_dialog_edit_image);
 
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.confirm, (dialog, id) -> {
-                    listener.onDialogPositiveClick(TripCountryDialogFragment.this, editText.getText().toString());
-                    TripCountryDialogFragment.this.getDialog().dismiss();
+                    listener.onDialogPositiveClick(TripImageDialogFragment.this, editText.getText().toString());
+                    TripImageDialogFragment.this.getDialog().dismiss();
                 })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> TripCountryDialogFragment.this.getDialog().cancel());
+                .setNegativeButton(R.string.cancel, (dialog, id) -> TripImageDialogFragment.this.getDialog().cancel());
 
         // Create the AlertDialog object and return it
         return builder.create();

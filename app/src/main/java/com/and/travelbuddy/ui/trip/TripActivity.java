@@ -2,6 +2,7 @@ package com.and.travelbuddy.ui.trip;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +15,14 @@ import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.databinding.ActivityTripBinding;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,8 +36,10 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     private ActivityTripBinding binding;
     private TextView country;
     private TextView date;
+    private ImageView image;
+    private ExtendedFloatingActionButton efab;
+    private FloatingActionButton fab;
     private Trip trip;
-    private Map<String, Object> values;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
 
@@ -50,7 +55,6 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         viewPager.setAdapter(tripSectionsPagerAdapter);
         TabLayout tabs = binding.tripActivityTabs;
         tabs.setupWithViewPager(viewPager);
-        ExtendedFloatingActionButton efab = binding.tripFabPlus;
 
         /** Date picker */
         date = binding.tripActivityTextDate;
@@ -90,6 +94,16 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
             tripCountryDialogFragment.show(getSupportFragmentManager(), "Edit country");
         });
 
+        /** Edit Image */
+        image = binding.tripActivityImage;
+        fab = binding.tripFabImage;
+        Picasso.get().load(trip.getImage()).fit().centerInside().into(image);
+        fab.setOnClickListener(view -> {
+            TripImageDialogFragment tripImageDialogFragment = new TripImageDialogFragment();
+            tripImageDialogFragment.show(getSupportFragmentManager(), "Edit Image");
+        });
+
+        efab = binding.tripEfabSave;
         efab.setOnClickListener(view -> {
             /** Save new information */
             updateUser();
@@ -108,6 +122,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
                                                         }
                                                         postValues.put("country", country.getText().toString());
                                                         postValues.put("date", date.getText().toString());
+                                                        postValues.put("image", trip.getImage());
                                                         databaseReference.child(trip.getKey()).updateChildren(postValues);
                                                     }
 

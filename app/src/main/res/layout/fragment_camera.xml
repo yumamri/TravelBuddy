@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/camera_fragment_image_preview"
-        android:layout_width="369dp"
-        android:layout_height="686dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

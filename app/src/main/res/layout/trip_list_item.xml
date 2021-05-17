@@ -22,8 +22,8 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/trip_item_photo"
-                    android:layout_width="349dp"
+                    android:id="@+id/trip_item_image"
+                    android:layout_width="match_parent"
                     android:layout_height="195dp"
                     android:contentDescription="@string/description"
                     app:layout_constraintBottom_toBottomOf="parent"

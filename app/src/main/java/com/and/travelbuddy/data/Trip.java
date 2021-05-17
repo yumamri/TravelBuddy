@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class Trip implements Serializable {
     private String key;
-    private String image;
     private String country;
     private String date;
+    private String image;
     private ArrayList<Document> documentArrayList;
     private ArrayList<String> checklist;
 
@@ -31,14 +31,6 @@ public class Trip implements Serializable {
         this.key = key;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -55,19 +47,11 @@ public class Trip implements Serializable {
         this.date = date;
     }
 
-    public ArrayList<Document> getDocumentArrayList() {
-        return documentArrayList;
+    public String getImage() {
+        return image;
     }
 
-    public void setDocumentArrayList(ArrayList<Document> documentArrayList) {
-        this.documentArrayList = documentArrayList;
-    }
-
-    public ArrayList<String> getChecklist() {
-        return checklist;
-    }
-
-    public void setChecklist(ArrayList<String> checklist) {
-        this.checklist = checklist;
+    public void setImage(String image) {
+        this.image = image;
     }
 }
