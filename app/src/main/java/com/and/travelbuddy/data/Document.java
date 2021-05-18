@@ -7,14 +7,14 @@ public class Document {
     private String key;
     private String title;
     private String image;
-    private Tag category;
+    private String category;
 
     public Document() {
     }
-
-    public Document(String title, String image) {
+    public Document(String title, String image, String category) {
         this.title = title;
         this.image = image;
+        this.category = category;
     }
 
     @Exclude
@@ -43,11 +43,11 @@ public class Document {
         this.image = image;
     }
 
-    public Tag getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Tag category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }

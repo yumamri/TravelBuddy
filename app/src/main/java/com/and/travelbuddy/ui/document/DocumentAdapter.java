@@ -36,6 +36,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
         Document document = documentArrayList.get(position);
         viewHolder.title.setText(document.getTitle());
         Picasso.get().load(document.getImage()).fit().centerInside().into(viewHolder.picture);
+        viewHolder.category.setText(document.getCategory());
     }
 
     @Override
@@ -55,11 +56,13 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
         TextView title;
         ImageView picture;
+        TextView category;
 
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.document_item_text_title);
             picture = itemView.findViewById(R.id.document_item_image_preview);
+            category = itemView.findViewById(R.id.document_item_text_category);
             itemView.setOnClickListener(this);
         }
 

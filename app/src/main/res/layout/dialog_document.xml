@@ -43,7 +43,6 @@
         android:textSize="15sp"
         android:gravity="center"
         android:text="@string/dialog_document_category" />
-
     <Spinner
         android:id="@+id/document_dialog_spinner_category"
         android:layout_width="match_parent"
@@ -51,6 +50,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/white" />
+        android:background="@color/white"
+        android:hint="@string/edit_me" />
 
 </LinearLayout>

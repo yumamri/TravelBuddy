@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -133,7 +135,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
      * Dialog info recieved
      */
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String fileName, Uri uri) {
+    public void onDialogPositiveClick(DialogFragment dialog, String fileName, Uri uri, String category) {
         StorageReference storageReferenceUpload = storageReference.child(fileName);
         UploadTask uploadTask = storageReferenceUpload.putFile(uri);
         uploadTask.addOnSuccessListener(taskSnapshot -> {
@@ -144,7 +146,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
                         String imageUrl = uriSuccess.toString();
                         Snackbar.make(getView(), fileName + " uploaded successfully", Snackbar.LENGTH_SHORT)
                                 .show();
-                        Document document = new Document(fileName, imageUrl);
+                        Document document = new Document(fileName, imageUrl, category);
                         databaseReference.push().setValue(document);
                     });
                 }

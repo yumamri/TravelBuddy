@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,8 +24,11 @@ public class DocumentDialogFragment extends DialogFragment {
     private TextView textView;
     private ImageButton button;
 
+    Spinner spinner;
+    ArrayAdapter<CharSequence> categoryAdapter;
+
     public interface DialogListener {
-        void onDialogPositiveClick(DialogFragment dialog, String string, Uri uri);
+        void onDialogPositiveClick(DialogFragment dialog, String title, Uri uri, String category);
     }
 
     public String fileName;
@@ -39,15 +44,13 @@ public class DocumentDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_document, null);
-        // TODO: add category
-        Spinner spinner = view.findViewById(R.id.document_dialog_spinner_category);
 
         /** Data handling between dialog and parent */
         textView = view.findViewById(R.id.document_dialog_text_name);
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.add, (dialog, id) -> {
-                    listener.onDialogPositiveClick(DocumentDialogFragment.this, fileName, uri);
+                    listener.onDialogPositiveClick(DocumentDialogFragment.this, fileName, uri, spinner.getSelectedItem().toString());
                     DocumentDialogFragment.this.getDialog().dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> DocumentDialogFragment.this.getDialog().cancel());
@@ -60,6 +63,12 @@ public class DocumentDialogFragment extends DialogFragment {
             chooseFile = Intent.createChooser(chooseFile, "Choose a file");
             startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
         });
+
+        /** Spinner */
+        spinner = view.findViewById(R.id.document_dialog_spinner_category);
+        categoryAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.category_array, android.R.layout.simple_spinner_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(categoryAdapter);
         // Create the AlertDialog object and return it
         return builder.create();
     }

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
     }
 
-    private void checkIfSignedIn() {
+    public void checkIfSignedIn() {
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {

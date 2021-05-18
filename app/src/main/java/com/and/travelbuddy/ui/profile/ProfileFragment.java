@@ -1,5 +1,6 @@
 package com.and.travelbuddy.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
+import com.and.travelbuddy.ui.login.LoginActivity;
 import com.and.travelbuddy.ui.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,7 +34,7 @@ public class ProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
 
         Button buttonSignOut = root.findViewById(R.id.profile_fragment_button_signout);
-        buttonSignOut.setOnClickListener(v -> auth.signOut());
+        buttonSignOut.setOnClickListener(v -> signOut());
 
         user = auth.getCurrentUser();
         name = root.findViewById(R.id.profile_fragment_text_name);
@@ -41,5 +43,11 @@ public class ProfileFragment extends Fragment {
         name.setText(user.getDisplayName());
         Picasso.get().load(user.getPhotoUrl()).fit().centerInside().into(pp);
         return root;
+    }
+
+    public void signOut() {
+        auth.signOut();
+        getActivity().getFragmentManager().popBackStack();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }
