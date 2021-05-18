@@ -27,4 +27,11 @@
         android:background="@color/white"
         android:autofillHints="@string/dialog_trip_image_hint" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:text="@string/image_notice" />
+
 </LinearLayout>

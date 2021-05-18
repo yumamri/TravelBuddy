@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
+import com.and.travelbuddy.ui.main.MainActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -22,7 +23,7 @@ public class ProfileFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.profile_fragment_text_name);
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         Button buttonSignOut = root.findViewById(R.id.profile_fragment_button_signout);
-        //buttonSignOut.setOnClickListener(v -> ((MainActivity)getActivity()).signOut());
+        buttonSignOut.setOnClickListener(v -> ((MainActivity) getActivity()).logout());
         return root;
     }
 }

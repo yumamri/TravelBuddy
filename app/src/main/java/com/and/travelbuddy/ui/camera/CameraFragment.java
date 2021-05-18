@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -22,7 +23,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.and.travelbuddy.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;
@@ -115,8 +115,7 @@ public class CameraFragment extends Fragment {
     public void requestPermission() {
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED) {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_already_granted, Snackbar.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(getActivity(), R.string.permission_already_granted, Toast.LENGTH_LONG).show();
                 dispatchTakePictureIntent();
             } else {
                 ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION);

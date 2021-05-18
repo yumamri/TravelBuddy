@@ -37,11 +37,14 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     private TextView country;
     private TextView date;
     private ImageView image;
+    private TextView imageUrl;
     private ExtendedFloatingActionButton efab;
     private FloatingActionButton fab;
     private Trip trip;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
+
+    ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,8 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
 
         /** Edit Image */
         image = binding.tripActivityImage;
+        imageUrl = binding.tripActivityTextImage;
+        imageUrl.setText(trip.getImage());
         fab = binding.tripFabImage;
         Picasso.get().load(trip.getImage()).fit().centerInside().into(image);
         fab.setOnClickListener(view -> {
@@ -112,24 +117,24 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     }
 
     private void updateUser() {
-        databaseReference.child("Trips").child(trip.getKey())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Map<String, Object> postValues = new HashMap<String, Object>();
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            postValues.put(snapshot.getKey(), snapshot.getValue());
-                        }
-                        postValues.put("country", country.getText().toString());
-                        postValues.put("date", date.getText().toString());
-                        postValues.put("image", trip.getImage());
-                        databaseReference.child(trip.getKey()).updateChildren(postValues);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d(TAG, "onCancelled:" + databaseError);
-                    }
-                });
+        valueEventListener = databaseReference.child(trip.getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> postValues = new HashMap<String, Object>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    postValues.put(snapshot.getKey(), snapshot.getValue());
+                }
+                postValues.put("country", country.getText().toString());
+                postValues.put("date", date.getText().toString());
+                postValues.put("image", imageUrl.getText().toString());
+                databaseReference.child(trip.getKey()).updateChildren(postValues);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled:" + databaseError);
+            }
+        });
     }
 
     @Override
@@ -140,7 +145,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     @Override
     public void onDialogImagePositiveClick(DialogFragment dialog, String string) {
         Picasso.get().load(string).fit().centerInside().into(image);
-        trip.setImage(string);
+        imageUrl.setText(string);
     }
 
     @Override
@@ -155,4 +160,9 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         }
     }
 
+    @Override
+    public void onDestroy() {
+        databaseReference.removeEventListener(valueEventListener);
+        super.onDestroy();
+    }
 }

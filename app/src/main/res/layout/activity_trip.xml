@@ -28,14 +28,14 @@
             <ImageView
                 android:id="@+id/trip_activity_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/backgrounds/scenic"
                 android:contentDescription="@string/description" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -44,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:minHeight="?actionBarSize"
-                    android:padding="@dimen/appbar_padding"
+                    android:paddingStart="@dimen/appbar_padding"
+                    android:paddingTop="50dp"
                     android:text="@string/country"
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:textSize="35sp" />
@@ -54,9 +55,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/appbar_padding"
-                    android:paddingBottom="@dimen/appbar_padding"
+                    android:paddingTop="50dp"
                     android:text="@string/trip_date"
+                    android:textSize="20sp"
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle" />
+
+                <TextView
+                    android:id="@+id/trip_activity_text_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -65,7 +73,7 @@
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/trip_activity_tabs"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_alignParentBottom="true"
                         android:background="@color/primary_light_blue" />
                 </RelativeLayout>

@@ -60,4 +60,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
+
+    public void logout() {
+        auth.signOut();
+        startLoginActivity();
+    }
 }

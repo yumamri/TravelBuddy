@@ -5,8 +5,8 @@
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
 
-    <string name="title_activity_trip">TripActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_trip">Trip</string>
+    <string name="title_activity_login">Login</string>
 
     <string name="button_sign_in">Sign in with Google</string>
     <string name="button_profile_sign_out">Sign out</string>
@@ -35,4 +35,5 @@
     <string name="failed_documents">Failed to load documents</string>
     <string name="failed_trips">Failed to load trips</string>
     <string name="image_notice">Use links that end with .png, .jpg or .jpeg only</string>
+    <string name="failed_trips_update">Failed to update trip</string>
 </resources>

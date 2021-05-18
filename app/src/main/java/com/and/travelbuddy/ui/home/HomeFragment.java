@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,26 +26,27 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "TRIP_DATABASE";
-    RecyclerView recyclerViewTrip;
-    TripAdapter tripAdapter;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
-    ArrayList<Trip> tripArrayList = new ArrayList<>();
     ArrayList<String> keysArrayList = new ArrayList<>();
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    ChildEventListener childEventListener;
 
-    }
+    RecyclerView recyclerViewTrip;
+    TripAdapter tripAdapter;
+    ArrayList<Trip> tripArrayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
         fab.setOnClickListener(view -> {
             Trip trip = new Trip(getString(R.string.edit_me), getString(R.string.edit_me), "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg");
@@ -53,50 +57,65 @@ public class HomeFragment extends Fragment {
         recyclerViewTrip = root.findViewById(R.id.home_fragment_recycler_view_trip);
         recyclerViewTrip.hasFixedSize();
         recyclerViewTrip.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         tripAdapter = new TripAdapter(tripArrayList, this::onListItemClick);
         recyclerViewTrip.setAdapter(tripAdapter);
 
-        /** Trip list */
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        /** Swipe to delete */
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-                String key = dataSnapshot.getKey();
-                Trip trip = dataSnapshot.getValue(Trip.class);
-                trip.setKey(key);
-                tripArrayList.add(trip);
-                tripAdapter.notifyDataSetChanged();
-                keysArrayList.add(key);
+            public boolean onMove(@NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder, @NonNull @NotNull RecyclerView.ViewHolder target) {
+                return false;
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-                Trip newTrip = dataSnapshot.getValue(Trip.class);
-                String key = dataSnapshot.getKey();
-                int index = keysArrayList.indexOf(key);
+            public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Trip swipedTrip = tripArrayList.get(viewHolder.getAdapterPosition());
+                String key = swipedTrip.getKey();
+                tripArrayList.remove(swipedTrip);
+                databaseReference.child(key).removeValue();
+            }
+        }).attachToRecyclerView(recyclerViewTrip);
+
+        /** Trip list */
+        childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                Log.d(TAG, "onChildAdded:" + snapshot.getKey());
+                String key = snapshot.getKey();
+                Trip trip = snapshot.getValue(Trip.class);
+                trip.setKey(key);
+                tripArrayList.add(trip);
+                keysArrayList.add(key);
+                tripAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                Log.d(TAG, "onChildChanged:" + snapshot.getKey());
+                Trip newTrip = snapshot.getValue(Trip.class);
+                int index = keysArrayList.indexOf(snapshot.getKey());
                 tripArrayList.set(index, newTrip);
                 tripAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-                tripArrayList.remove(dataSnapshot.getKey());
+            public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
+                Log.d(TAG, "onChildRemoved:" + snapshot.getKey());
+                tripArrayList.remove(snapshot.getKey());
                 tripAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+            public void onChildMoved(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
+                Log.d(TAG, "onChildMoved:" + snapshot.getKey());
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "postTrips:onCancelled", databaseError.toException());
-                Snackbar.make(getView(), R.string.failed_trips, Snackbar.LENGTH_SHORT)
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                Log.w(TAG, "postTrips:onCancelled", error.toException());
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.failed_trips, Snackbar.LENGTH_SHORT)
                         .show();
-
             }
         });
         return root;
@@ -111,5 +130,11 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), TripActivity.class);
         intent.putExtra("TRIP_KEY", trip);
         startActivity(intent);
+    }
+
+    @Override
+    public void onPause() {
+        databaseReference.removeEventListener(childEventListener);
+        super.onPause();
     }
 }

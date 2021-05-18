@@ -36,13 +36,15 @@ import java.util.ArrayList;
 
 public class DocumentFragment extends Fragment implements DocumentDialogFragment.DialogListener {
     private static final String TAG = "DOCUMENT_DATABASE";
-    RecyclerView recyclerViewDocument;
-    DocumentAdapter documentAdapter;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
     DatabaseReference databaseReference = firebaseDatabase.getReference().child("Documents");
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://travel-buddy-uwu.appspot.com");
     StorageReference storageReference = firebaseStorage.getReference().child("Photos");
 
+    ChildEventListener childEventListener;
+
+    RecyclerView recyclerViewDocument;
+    DocumentAdapter documentAdapter;
     ArrayList<Document> documentArrayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -81,7 +83,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         });
 
         /** Document list */
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
@@ -115,7 +117,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(TAG, "postDocuments:onCancelled", databaseError.toException());
-                Snackbar.make(getView(), R.string.failed_documents, Snackbar.LENGTH_SHORT)
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.failed_documents, Snackbar.LENGTH_SHORT)
                         .show();
             }
         });
@@ -123,8 +125,7 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
     }
 
     public void onListItemClick(int index) {
-        int documentIndex = index;
-        Document document = documentAdapter.getDocumentArrayList().get(documentIndex);
+        Document document = documentAdapter.getDocumentArrayList().get(index);
         Toast.makeText(getActivity(), document.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
@@ -159,5 +160,11 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
         if (fragment instanceof DocumentDialogFragment) {
             ((DocumentDialogFragment) fragment).listener = this;
         }
+    }
+
+    @Override
+    public void onPause() {
+        databaseReference.removeEventListener(childEventListener);
+        super.onPause();
     }
 }

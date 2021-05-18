@@ -10,7 +10,6 @@ import android.widget.EditText;
 import androidx.fragment.app.DialogFragment;
 
 import com.and.travelbuddy.R;
-import com.google.android.material.snackbar.Snackbar;
 
 public class TripImageDialogFragment extends DialogFragment {
 
