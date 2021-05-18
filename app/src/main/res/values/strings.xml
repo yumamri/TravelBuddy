@@ -34,4 +34,5 @@
     <string name="permission_already_granted">Permission already granted</string>
     <string name="failed_documents">Failed to load documents</string>
     <string name="failed_trips">Failed to load trips</string>
+    <string name="image_notice">Use links that end with .png, .jpg or .jpeg only</string>
 </resources>

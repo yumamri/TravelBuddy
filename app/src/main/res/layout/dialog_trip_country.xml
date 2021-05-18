@@ -24,6 +24,7 @@
         android:textSize="15sp"
         android:gravity="center"
         android:background="@color/white"
+        android:hint="@string/dialog_trip_country_hint"
         android:autofillHints="@string/dialog_trip_country_hint" />
 
 </LinearLayout>

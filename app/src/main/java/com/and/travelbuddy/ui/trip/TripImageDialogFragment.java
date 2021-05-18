@@ -10,10 +10,14 @@ import android.widget.EditText;
 import androidx.fragment.app.DialogFragment;
 
 import com.and.travelbuddy.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class TripImageDialogFragment extends DialogFragment {
 
     private EditText editText;
+
+    public TripImageDialogFragment(View view) {
+    }
 
     public interface DialogImageListener {
         void onDialogImagePositiveClick(DialogFragment dialog, String string);
@@ -30,7 +34,6 @@ public class TripImageDialogFragment extends DialogFragment {
 
         /** Data handling between dialog and parent */
         editText = view.findViewById(R.id.trip_dialog_edit_image);
-
         builder.setView(view)
                 // Add action buttons
                 .setPositiveButton(R.string.confirm, (dialog, id) -> {
@@ -38,7 +41,6 @@ public class TripImageDialogFragment extends DialogFragment {
                     TripImageDialogFragment.this.getDialog().dismiss();
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> TripImageDialogFragment.this.getDialog().cancel());
-
         // Create the AlertDialog object and return it
         return builder.create();
     }

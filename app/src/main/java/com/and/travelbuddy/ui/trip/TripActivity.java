@@ -99,7 +99,7 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         fab = binding.tripFabImage;
         Picasso.get().load(trip.getImage()).fit().centerInside().into(image);
         fab.setOnClickListener(view -> {
-            TripImageDialogFragment tripImageDialogFragment = new TripImageDialogFragment();
+            TripImageDialogFragment tripImageDialogFragment = new TripImageDialogFragment(view);
             tripImageDialogFragment.show(getSupportFragmentManager(), "Edit Image");
         });
 
@@ -114,24 +114,22 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     private void updateUser() {
         databaseReference.child("Trips").child(trip.getKey())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        Map<String, Object> postValues = new HashMap<String, Object>();
-                                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                            postValues.put(snapshot.getKey(), snapshot.getValue());
-                                                        }
-                                                        postValues.put("country", country.getText().toString());
-                                                        postValues.put("date", date.getText().toString());
-                                                        postValues.put("image", trip.getImage());
-                                                        databaseReference.child(trip.getKey()).updateChildren(postValues);
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-                                                        Log.d(TAG, "onCancelled:" + databaseError);
-                                                    }
-                                                }
-                );
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, Object> postValues = new HashMap<String, Object>();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            postValues.put(snapshot.getKey(), snapshot.getValue());
+                        }
+                        postValues.put("country", country.getText().toString());
+                        postValues.put("date", date.getText().toString());
+                        postValues.put("image", trip.getImage());
+                        databaseReference.child(trip.getKey()).updateChildren(postValues);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d(TAG, "onCancelled:" + databaseError);
+                    }
+                });
     }
 
     @Override

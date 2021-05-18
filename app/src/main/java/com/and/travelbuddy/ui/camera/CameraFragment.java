@@ -115,7 +115,7 @@ public class CameraFragment extends Fragment {
     public void requestPermission() {
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED) {
-                Snackbar.make(getView(), R.string.permission_already_granted, Snackbar.LENGTH_SHORT)
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_already_granted, Snackbar.LENGTH_SHORT)
                         .show();
                 dispatchTakePictureIntent();
             } else {

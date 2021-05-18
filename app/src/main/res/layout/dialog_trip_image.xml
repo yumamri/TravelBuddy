@@ -21,6 +21,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:hint="@string/dialog_trip_image_hint"
         android:textSize="15sp"
         android:gravity="center"
         android:background="@color/white"
