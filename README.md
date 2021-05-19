@@ -23,3 +23,8 @@ My motivation is to develop a modern instinctive application for travel. During 
     - Map of chosen location
 - Won't have :
     - Friend system 
+
+## Minor Hugs :
+- User is disconnected on opening file picker
+- Logging out causes a database error 
+- Updating doesn't update in real time due to child event listener
