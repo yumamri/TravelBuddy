@@ -144,10 +144,10 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
                     Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
                     result.addOnSuccessListener(uriSuccess -> {
                         String imageUrl = uriSuccess.toString();
-                        Snackbar.make(getView(), fileName + " uploaded successfully", Snackbar.LENGTH_SHORT)
-                                .show();
                         Document document = new Document(fileName, imageUrl, category);
                         databaseReference.push().setValue(document);
+                        Snackbar.make(getView(), fileName + " uploaded successfully", Snackbar.LENGTH_SHORT)
+                                .show();
                     });
                 }
             }
@@ -165,8 +165,8 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
     }
 
     @Override
-    public void onPause() {
+    public void onDestroy() {
         databaseReference.removeEventListener(childEventListener);
-        super.onPause();
+        super.onDestroy();
     }
 }

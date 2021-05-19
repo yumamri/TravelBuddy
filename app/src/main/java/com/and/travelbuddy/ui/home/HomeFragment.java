@@ -32,8 +32,8 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "TRIP_DATABASE";
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
     ArrayList<String> keysArrayList = new ArrayList<>();
 
     ChildEventListener childEventListener;
@@ -46,6 +46,9 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+        databaseReference = firebaseDatabase.getReference().child("Trips");
 
         FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
         fab.setOnClickListener(view -> {
@@ -77,6 +80,24 @@ public class HomeFragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerViewTrip);
 
+
+        return root;
+    }
+
+    public void onListItemClick(int index) {
+        Trip trip = tripAdapter.getTripArrayList().get(index);
+        startTripActivity(trip);
+    }
+
+    private void startTripActivity(Trip trip) {
+        Intent intent = new Intent(getActivity(), TripActivity.class);
+        intent.putExtra("TRIP_KEY", trip);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         /** Trip list */
         childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -118,23 +139,14 @@ public class HomeFragment extends Fragment {
                         .show();
             }
         });
-        return root;
-    }
-
-    public void onListItemClick(int index) {
-        Trip trip = tripAdapter.getTripArrayList().get(index);
-        startTripActivity(trip);
-    }
-
-    private void startTripActivity(Trip trip) {
-        Intent intent = new Intent(getActivity(), TripActivity.class);
-        intent.putExtra("TRIP_KEY", trip);
-        startActivity(intent);
     }
 
     @Override
     public void onPause() {
-        databaseReference.removeEventListener(childEventListener);
         super.onPause();
+        databaseReference.child("Trips").removeEventListener(childEventListener);
+
     }
+
+
 }

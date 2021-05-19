@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
-    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,31 +37,23 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance();
     }
 
     public void checkIfSignedIn() {
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null) {
-            String message = "Welcome " + currentUser.getDisplayName();
-            Toast.makeText(this,
-                    message,
-                    Toast.LENGTH_LONG)
-                    .show();
-        } else
-            startLoginActivity();
+        viewModel.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                String message = "Welcome " + user.getDisplayName();
+                Toast.makeText(this,
+                        message,
+                        Toast.LENGTH_LONG)
+                        .show();
+            } else
+                startLoginActivity();
+        });
     }
 
     private void startLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
-    }
-
-    public void logout() {
-        auth.signOut();
-        startLoginActivity();
     }
 }

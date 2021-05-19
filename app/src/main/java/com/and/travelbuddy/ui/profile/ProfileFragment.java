@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
@@ -21,33 +22,30 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
-    FirebaseAuth auth;
-    FirebaseUser user;
+    LiveData<FirebaseUser> user;
     TextView name;
     ImageView pp;
+    ProfileViewModel profileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        auth = FirebaseAuth.getInstance();
 
         Button buttonSignOut = root.findViewById(R.id.profile_fragment_button_signout);
         buttonSignOut.setOnClickListener(v -> signOut());
 
-        user = auth.getCurrentUser();
+        user = profileViewModel.getCurrentUser();
         name = root.findViewById(R.id.profile_fragment_text_name);
         pp = root.findViewById(R.id.profile_fragment_image_pp);
 
-        name.setText(user.getDisplayName());
-        Picasso.get().load(user.getPhotoUrl()).fit().centerInside().into(pp);
+        name.setText(user.getValue().getDisplayName());
+        Picasso.get().load(user.getValue().getPhotoUrl()).fit().centerInside().into(pp);
         return root;
     }
 
     public void signOut() {
-        auth.signOut();
-        getActivity().getFragmentManager().popBackStack();
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        profileViewModel.signOut();
+        startActivity(new Intent(getContext(), LoginActivity.class));
     }
 }

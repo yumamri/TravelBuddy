@@ -41,11 +41,19 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        checkIfSignedIn();
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance();
+    }
 
-        signIn();
+    private void checkIfSignedIn() {
+        viewModel.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                goToMainActivity();
+            } else {
+                signIn();
+            }
+        });
     }
 
     @Override

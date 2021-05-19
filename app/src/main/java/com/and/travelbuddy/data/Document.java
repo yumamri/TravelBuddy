@@ -11,6 +11,7 @@ public class Document {
 
     public Document() {
     }
+
     public Document(String title, String image, String category) {
         this.title = title;
         this.image = image;
