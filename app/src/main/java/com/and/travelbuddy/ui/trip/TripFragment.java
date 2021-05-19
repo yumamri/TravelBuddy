@@ -11,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.travelbuddy.databinding.FragmentTripBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -51,13 +53,10 @@ public class TripFragment extends Fragment {
         binding = FragmentTripBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.tripFragmentTextSectionLabel;
-        tripPageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        RecyclerView recyclerView = binding.tripFragmentRecyclerView;
+        FloatingActionButton floatingActionButton = binding.tripFragmentFabPlus;
+
+
         return root;
     }
 
