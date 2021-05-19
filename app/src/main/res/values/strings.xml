@@ -36,6 +36,8 @@
     <string name="failed_trips">Failed to load trips</string>
     <string name="image_notice">Use links that end with .png, .jpg or .jpeg only</string>
     <string name="failed_trips_update">Failed to update trip</string>
+    <string name="sign_in_cancelled">Sign in cancelled</string>
+    <string name="update">Refresh the changes by clicking on other tabs</string>
 
     <string-array name="category_array">
         <item>ID</item>

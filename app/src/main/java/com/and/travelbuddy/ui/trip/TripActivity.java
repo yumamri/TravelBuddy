@@ -11,11 +11,13 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.databinding.ActivityTripBinding;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,6 +60,9 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         viewPager.setAdapter(tripSectionsPagerAdapter);
         TabLayout tabs = binding.tripActivityTabs;
         tabs.setupWithViewPager(viewPager);
+
+        Snackbar.make(this.findViewById(android.R.id.content), R.string.update, Snackbar.LENGTH_INDEFINITE)
+                .show();
 
         /** Date picker */
         date = binding.tripActivityTextDate;

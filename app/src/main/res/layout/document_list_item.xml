@@ -7,9 +7,10 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/document_item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="5dp"
+        app:cardElevation="10dp"
         android:layout_margin="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

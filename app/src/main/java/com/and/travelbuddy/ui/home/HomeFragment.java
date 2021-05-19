@@ -80,25 +80,7 @@ public class HomeFragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerViewTrip);
 
-
-        return root;
-    }
-
-    public void onListItemClick(int index) {
-        Trip trip = tripAdapter.getTripArrayList().get(index);
-        startTripActivity(trip);
-    }
-
-    private void startTripActivity(Trip trip) {
-        Intent intent = new Intent(getActivity(), TripActivity.class);
-        intent.putExtra("TRIP_KEY", trip);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        /** Trip list */
+/** Trip list */
         childEventListener = databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull @NotNull DataSnapshot snapshot, @Nullable @org.jetbrains.annotations.Nullable String previousChildName) {
@@ -135,15 +117,25 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
                 Log.w(TAG, "postTrips:onCancelled", error.toException());
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.failed_trips, Snackbar.LENGTH_SHORT)
-                        .show();
             }
         });
+        return root;
+    }
+
+    public void onListItemClick(int index) {
+        Trip trip = tripAdapter.getTripArrayList().get(index);
+        startTripActivity(trip);
+    }
+
+    private void startTripActivity(Trip trip) {
+        Intent intent = new Intent(getActivity(), TripActivity.class);
+        intent.putExtra("TRIP_KEY", trip);
+        startActivity(intent);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroyView() {
+        super.onDestroyView();
         databaseReference.child("Trips").removeEventListener(childEventListener);
 
     }

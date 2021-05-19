@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Document;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
@@ -71,6 +73,9 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
                 Document swipedDocument = documentArrayList.get(viewHolder.getAdapterPosition());
+                /** Sad attempt to try and change bg color on swipe */
+//                MaterialCardView materialCardView = root.findViewById(R.id.document_item_card);
+//                materialCardView.setCardBackgroundColor(getResources().getColor(R.color.primary_green));
                 String key = swipedDocument.getKey();
                 documentArrayList.remove(swipedDocument);
                 databaseReference.child(key).removeValue();
@@ -165,8 +170,8 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
         databaseReference.removeEventListener(childEventListener);
-        super.onDestroy();
     }
 }

@@ -3,6 +3,8 @@ package com.and.travelbuddy.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,11 +32,24 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private GoogleSignInClient googleSignInClient;
     private LoginViewModel viewModel;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        setContentView(R.layout.activity_login);
+        button = findViewById(R.id.login_activity_button_signin);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkIfSignedIn();
+            }
+        });
+        auth = FirebaseAuth.getInstance();
+    }
+
+    private void googleSignIn() {
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -41,9 +57,6 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-        checkIfSignedIn();
-        // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance();
     }
 
     private void checkIfSignedIn() {
@@ -59,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
+        FirebaseUser currentUser = viewModel.getCurrentUser().getValue();
         updateUI(currentUser);
     }
 
@@ -109,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+        googleSignIn();
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
