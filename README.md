@@ -28,3 +28,56 @@ My motivation is to develop a modern instinctive application for travel. During 
 - User is disconnected on opening file picker
 - Logging out causes a database error 
 - Updating doesn't update in real time due to child event listener
+
+# I would like to thank certain people with my code :
+- My android teachers from VIA University Horsens
+    - Jakob Knop Rasmussen
+    - Kasper Knop Rasmussen
+- The Stack Overflow Community
+- Android youtubers :
+    - Ali Farhat
+    - Ambar Hasbiyatmoko
+    - an Erik
+    - AndroChunk
+    - Android Coding
+    - Atif Pervalz
+    - Azamsharp
+    - Belal Khan
+    - Bhuwan Mahato
+    - Careless Coders
+    - CMDev
+    - CodeWithMazn
+    - Coding 22Rials
+    - Coding in Flow
+    - Coding with TEA
+    - CodingSTUFF
+    - CodingWithMitch
+    - Cubix Sol
+    - Daniyal Zakir
+    - Dipesh Rai
+    - Fery Shah
+    - Filip Vujovic
+    - Firebase
+    - Foxandroid
+    - Graven Développment
+    - Hemant Kumar
+    - Ketul Patel
+    - Let's Study
+    - Matt Boutell
+    - Md Jamal
+    - Papaya Coders
+    - Penguin Coders
+    - Prego Coding Classes
+    - Programming Experts 
+    - Rajjan Sharma 
+    - Sagar S
+    - Sanvi Infotech
+    - Simplified Coding
+    - Stevdza - San
+    - Technical Skillz
+    - The Net Ninja
+    - TVAC Studio
+    - U4Universe
+    - uNicoDev
+    - YoursTRULY
+    - Alan Ranjoni
