@@ -1,5 +1,6 @@
 # TravelBuddy
 Android Application
+https://youtu.be/LTXpDyCsTd4
 
 ## Description : 
 This is a convenient travel partner application to accompany users on their travel keeping all their documents in one place.
@@ -24,9 +25,25 @@ My motivation is to develop a modern instinctive application for travel. During 
 - Won't have :
     - Friend system 
 
+
+## Things that work : 
+- Authentication using Google Login through Firebase
+- Realtime database and Cloud storage for data persistance used mainly (90%) for lists
+- Swipe to delete is used on everything in the app (anything that could be deleted is deleted using the swipe to the left)
+- Dialog fragments maybe deprecated (because android loves changes) so they're used to create objects as it's a more user friendly way
+- The camera took 2 weeks to implement and it has been working for a long time (the developper just didn't know where to look in the phone files)
+- Speaking of files, the file picker uses a predefined file path to access photos, the photos are also saved onto the cloud so even if the application is removed local files will be destroyed but their souls live on in the clouds
+- The checklist works a bit too well, it is easily spammable and also saved the boolean
+- Implementing documents to trips use documents that are uploaded to the database
+- Only authenticated users can read or write in the database
+- Modifications to existing trips are possible
+- Preview of photos for the documents or for the trips are done using the Picasso Android library (works with url ending in image format only)
+- The user is no longer trapped in the application and can log out
+
 ## Minor Hugs :
 - User is disconnected on opening file picker
-- Logging out causes a database error 
+- Logging out causes a database error (on cancelled database is triggered weirdly)
+- Cannot remove the stupid child event listener so please bare with the developper
 - Updating doesn't update in real time due to child event listener
 - After updating a trip, this can cause a path error to the database or a corrupted entry into the database
 - There is no logout service
