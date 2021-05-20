@@ -28,6 +28,18 @@ My motivation is to develop a modern instinctive application for travel. During 
 - User is disconnected on opening file picker
 - Logging out causes a database error 
 - Updating doesn't update in real time due to child event listener
+- After updating a trip, this can cause a path error to the database or a corrupted entry into the database
+- There is no logout service
+- Notifications were not implemented
+- The photos are saved onto the cloud but cannot be accessed from the application
+- The date is just a string
+- Dark mode never saw light of the application
+- Who needs friends? (I do) Sadly a friend system didn't get implemented
+- Also no one can flex on this app by sharing a trip but they can still go see someone physically and show the app directly (not Virus friendly though)
+- Travel info of the country isn't implemented due to the developper not searching for a suitable API
+- That also means countries have to be typed up
+- There is no map (the designer of this application was too ambitious)
+- After coding for almost a hundred hours in total, at the end of the day, the developper is seeing things more blurry even though the developper has glasses
 
 # I would like to thank certain people with my code :
 - My android teachers from VIA University Horsens
