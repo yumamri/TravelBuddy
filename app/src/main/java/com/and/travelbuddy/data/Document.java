@@ -51,4 +51,9 @@ public class Document {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
