@@ -179,7 +179,6 @@ public class TripChecklistFragment extends Fragment implements TripChecklistDial
 
     @Override
     public void handleCheckChanged(Checklist checklist, Boolean isChecked) {
-        Toast.makeText(getActivity(), isChecked.toString(), Toast.LENGTH_SHORT).show();
         valueEventListener = databaseReference.child(tripKey).child("Checklists").child(checklist.getKey()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
