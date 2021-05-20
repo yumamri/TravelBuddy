@@ -41,10 +41,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 String message = "Welcome " + user.getDisplayName();
-                Toast.makeText(this,
-                        message,
-                        Toast.LENGTH_LONG)
-                        .show();
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             } else
                 startLoginActivity();
         });

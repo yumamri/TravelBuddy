@@ -1,7 +1,6 @@
 package com.and.travelbuddy.ui.trip;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -11,8 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
-
-import java.util.ArrayList;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

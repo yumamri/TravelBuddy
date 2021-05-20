@@ -19,7 +19,6 @@ import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Trip;
 import com.and.travelbuddy.ui.trip.TripActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,15 +31,15 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "TRIP_DATABASE";
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");;
-    ArrayList<String> keysArrayList = new ArrayList<>();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+    private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");;
+    private ArrayList<String> keysArrayList = new ArrayList<>();
 
-    ChildEventListener childEventListener;
+    private ChildEventListener childEventListener;
 
-    RecyclerView recyclerViewTrip;
-    TripAdapter tripAdapter;
-    ArrayList<Trip> tripArrayList = new ArrayList<>();
+    private RecyclerView recyclerViewTrip;
+    private TripAdapter tripAdapter;
+    private ArrayList<Trip> tripArrayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -136,6 +135,7 @@ public class HomeFragment extends Fragment {
         databaseReference.child("Trips").removeEventListener(childEventListener);
 
     }
+
 
 
 }

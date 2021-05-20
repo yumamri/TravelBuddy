@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,18 +15,17 @@ import java.util.ArrayList;
 
 public class TripChecklistAdapter extends RecyclerView.Adapter<TripChecklistAdapter.ViewHolder> {
     private final ArrayList<Checklist> checklistArrayList;
-    final private OnListItemClickListener onListItemClickListener;
+    private ChecklistListener checklistListener;
 
-
-    public TripChecklistAdapter(ArrayList<Checklist> checklistArrayList, OnListItemClickListener onListItemClickListener) {
+    public TripChecklistAdapter(ArrayList<Checklist> checklistArrayList, ChecklistListener checklistListener) {
         this.checklistArrayList = checklistArrayList;
-        this.onListItemClickListener = onListItemClickListener;
+        this.checklistListener = checklistListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.fragment_trip_checklist_list_item, parent, false);
+        View view = inflater.inflate(R.layout.trip_checklist_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,23 +45,24 @@ public class TripChecklistAdapter extends RecyclerView.Adapter<TripChecklistAdap
         return checklistArrayList;
     }
 
-    public interface OnListItemClickListener {
-        void onListItemClick(int checklist);
+    public interface ChecklistListener {
+        public void handleCheckChanged(Checklist checklist, Boolean isChecked);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        CheckBox checkBox;
+        private CheckBox checkBox;
 
         ViewHolder(View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.trip_fragment_checklist_checkbox);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            onListItemClickListener.onListItemClick(getAdapterPosition());
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Checklist checklist = checklistArrayList.get(getAdapterPosition());
+                    checklistListener.handleCheckChanged(checklist, isChecked);
+                }
+            });
         }
     }
 }

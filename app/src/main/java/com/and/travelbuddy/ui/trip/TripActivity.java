@@ -43,10 +43,10 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
     private ExtendedFloatingActionButton efab;
     private FloatingActionButton fab;
     private Trip trip;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+    private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
 
-    ValueEventListener valueEventListener;
+    private ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,6 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         viewPager.setAdapter(tripSectionsPagerAdapter);
         TabLayout tabs = binding.tripActivityTabs;
         tabs.setupWithViewPager(viewPager);
-
-        Snackbar.make(this.findViewById(android.R.id.content), R.string.update, Snackbar.LENGTH_SHORT)
-                .show();
 
         /** Date picker */
         date = binding.tripActivityTextDate;
@@ -116,6 +113,8 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         efab = binding.tripEfabSave;
         efab.setOnClickListener(view -> {
             /** Save new information */
+            Snackbar.make(this.findViewById(android.R.id.content), R.string.update, Snackbar.LENGTH_SHORT)
+                    .show();
             updateUser();
             finish();
         });
@@ -167,7 +166,9 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
 
     @Override
     public void onDestroy() {
-        databaseReference.removeEventListener(valueEventListener);
+        if (valueEventListener != null){
+            databaseReference.removeEventListener(valueEventListener);
+        }
         super.onDestroy();
     }
 }

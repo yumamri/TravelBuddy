@@ -36,16 +36,16 @@ import java.util.ArrayList;
 
 public class DocumentFragment extends Fragment implements DocumentDialogFragment.DialogListener {
     private static final String TAG = "DOCUMENT_DATABASE";
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Documents");
-    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://travel-buddy-uwu.appspot.com");
-    StorageReference storageReference = firebaseStorage.getReference().child("Photos");
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+    private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Documents");
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://travel-buddy-uwu.appspot.com");
+    private StorageReference storageReference = firebaseStorage.getReference().child("Photos");
 
-    ChildEventListener childEventListener;
+    private ChildEventListener childEventListener;
 
-    RecyclerView recyclerViewDocument;
-    DocumentAdapter documentAdapter;
-    ArrayList<Document> documentArrayList = new ArrayList<>();
+    private RecyclerView recyclerViewDocument;
+    private DocumentAdapter documentAdapter;
+    private ArrayList<Document> documentArrayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

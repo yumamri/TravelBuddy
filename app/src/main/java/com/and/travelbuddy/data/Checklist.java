@@ -3,9 +3,9 @@ package com.and.travelbuddy.data;
 import com.google.firebase.database.Exclude;
 
 public class Checklist {
-    String key;
-    String item;
-    Boolean aBoolean;
+    private String key;
+    private String item;
+    private Boolean aBoolean;
 
     public Checklist() {
     }

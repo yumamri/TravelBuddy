@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 public class DocumentViewModel extends ViewModel {
 
-    DocumentRepository repository;
+    private DocumentRepository repository;
 
     public DocumentViewModel() {
         repository = DocumentRepository.getInstance();

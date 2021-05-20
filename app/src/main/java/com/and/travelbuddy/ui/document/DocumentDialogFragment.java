@@ -23,8 +23,8 @@ public class DocumentDialogFragment extends DialogFragment {
     private TextView textView;
     private ImageButton button;
 
-    Spinner spinner;
-    ArrayAdapter<CharSequence> categoryAdapter;
+    private Spinner spinner;
+    private ArrayAdapter<CharSequence> categoryAdapter;
 
     public interface DialogListener {
         void onDialogPositiveClick(DialogFragment dialog, String title, Uri uri, String category);

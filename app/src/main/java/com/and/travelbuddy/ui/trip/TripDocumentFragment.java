@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.travelbuddy.data.Checklist;
 import com.and.travelbuddy.data.Trip;
-import com.and.travelbuddy.databinding.FragmentTripChecklistBinding;
 import com.and.travelbuddy.databinding.FragmentTripDocumentBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
@@ -29,14 +28,14 @@ public class TripDocumentFragment extends Fragment {
     private static final String key = "TRIP_CHECKLIST_KEY";
 
     private FragmentTripDocumentBinding binding;
-    ChildEventListener childEventListener;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
-    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
+    private ChildEventListener childEventListener;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+    private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");
 
-    RecyclerView recyclerView;
-    TripChecklistAdapter tripChecklistAdapter;
-    ArrayList<Checklist> checklists = new ArrayList<>();
-    FloatingActionButton floatingActionButton;
+    private RecyclerView recyclerView;
+    private TripChecklistAdapter tripChecklistAdapter;
+    private ArrayList<Checklist> checklists = new ArrayList<>();
+    private FloatingActionButton floatingActionButton;
 
     public static Fragment newInstance(Trip trip) {
         Bundle bundle = new Bundle();
@@ -52,7 +51,6 @@ public class TripDocumentFragment extends Fragment {
         tripFrag = new Trip();
         if (getArguments() != null) {
             tripFrag = (Trip) getArguments().getSerializable(key);
-            Toast.makeText(getActivity(), tripFrag.getKey(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
         }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHolder> {
     private final ArrayList<Document> documentArrayList;
-    final private OnListItemClickListener onListItemClickListener;
+    private final OnListItemClickListener onListItemClickListener;
 
 
     public DocumentAdapter(ArrayList<Document> documentArrayList, OnListItemClickListener onListItemClickListener) {
@@ -54,9 +54,9 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView title;
-        ImageView picture;
-        TextView category;
+        private TextView title;
+        private ImageView picture;
+        private TextView category;
 
         ViewHolder(View itemView) {
             super(itemView);

@@ -20,10 +20,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
-    LiveData<FirebaseUser> user;
-    TextView name;
-    ImageView pp;
-    ProfileViewModel profileViewModel;
+    private LiveData<FirebaseUser> user;
+    private TextView name;
+    private ImageView pp;
+    private ProfileViewModel profileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private GoogleSignInClient googleSignInClient;
     private LoginViewModel viewModel;
-    Button button;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

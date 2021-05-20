@@ -51,9 +51,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView country;
-        TextView date;
-        ImageView image;
+        private TextView country;
+        private TextView date;
+        private ImageView image;
 
         ViewHolder(View itemView) {
             super(itemView);
