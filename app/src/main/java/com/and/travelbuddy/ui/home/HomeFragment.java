@@ -32,8 +32,8 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "TRIP_DATABASE";
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
+    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Trips");;
     ArrayList<String> keysArrayList = new ArrayList<>();
 
     ChildEventListener childEventListener;
@@ -46,9 +46,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-        firebaseDatabase = FirebaseDatabase.getInstance("https://travel-buddy-uwu-default-rtdb.europe-west1.firebasedatabase.app/");
-        databaseReference = firebaseDatabase.getReference().child("Trips");
 
         FloatingActionButton fab = root.findViewById(R.id.home_fragment_fab_plus);
         fab.setOnClickListener(view -> {
@@ -105,7 +102,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildRemoved(@NonNull @NotNull DataSnapshot snapshot) {
                 Log.d(TAG, "onChildRemoved:" + snapshot.getKey());
-                tripArrayList.remove(snapshot.getKey());
                 tripAdapter.notifyDataSetChanged();
             }
 
@@ -117,8 +113,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
                 Log.w(TAG, "postTrips:onCancelled", error.toException());
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.failed_trips, Snackbar.LENGTH_SHORT)
-                        .show();
             }
         });
 

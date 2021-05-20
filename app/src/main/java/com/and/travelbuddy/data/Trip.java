@@ -10,8 +10,8 @@ public class Trip implements Serializable {
     private String country;
     private String date;
     private String image;
+    private ArrayList<Checklist> checklist = new ArrayList<>();
     private ArrayList<Document> documentArrayList;
-    private ArrayList<String> checklist;
 
     public Trip() {
     }
@@ -54,5 +54,13 @@ public class Trip implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public ArrayList<Checklist> getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(ArrayList<Checklist> checklist) {
+        this.checklist = checklist;
     }
 }

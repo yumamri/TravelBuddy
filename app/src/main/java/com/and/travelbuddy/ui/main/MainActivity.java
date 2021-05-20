@@ -14,8 +14,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;

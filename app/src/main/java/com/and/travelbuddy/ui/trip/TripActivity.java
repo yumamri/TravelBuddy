@@ -55,13 +55,13 @@ public class TripActivity extends AppCompatActivity implements TripCountryDialog
         /** View creation */
         binding = ActivityTripBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        TripSectionsPagerAdapter tripSectionsPagerAdapter = new TripSectionsPagerAdapter(this, getSupportFragmentManager());
+        TripSectionsPagerAdapter tripSectionsPagerAdapter = new TripSectionsPagerAdapter(this, getSupportFragmentManager(), trip);
         ViewPager viewPager = binding.tripActivityViewPager;
         viewPager.setAdapter(tripSectionsPagerAdapter);
         TabLayout tabs = binding.tripActivityTabs;
         tabs.setupWithViewPager(viewPager);
 
-        Snackbar.make(this.findViewById(android.R.id.content), R.string.update, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(this.findViewById(android.R.id.content), R.string.update, Snackbar.LENGTH_SHORT)
                 .show();
 
         /** Date picker */

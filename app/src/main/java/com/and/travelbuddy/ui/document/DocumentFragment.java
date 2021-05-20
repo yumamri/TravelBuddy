@@ -6,9 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.data.Document;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
@@ -94,7 +90,6 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-                // A new document has been added, add it to the displayed list
                 Document document = dataSnapshot.getValue(Document.class);
                 document.setKey(dataSnapshot.getKey());
                 documentArrayList.add(document);
@@ -110,9 +105,6 @@ public class DocumentFragment extends Fragment implements DocumentDialogFragment
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-                // A document has changed, use the key to determine if we are displaying this
-                // document and if so remove it.
-                documentArrayList.remove(dataSnapshot.getKey());
                 documentAdapter.notifyDataSetChanged();
             }
 

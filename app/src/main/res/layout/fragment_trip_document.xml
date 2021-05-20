@@ -6,16 +6,16 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="?attr/actionBarSize"
-    tools:context=".ui.trip.TripFragment">
+    tools:context=".ui.trip.Trip">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/trip_fragment_recycler_view"
+        android:id="@+id/trip_document_fragment_recycler_view"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/trip_fragment_fab_plus"
+        android:id="@+id/trip_document_fragment_fab_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

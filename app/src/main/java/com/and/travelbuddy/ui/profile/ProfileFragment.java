@@ -16,8 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.and.travelbuddy.R;
 import com.and.travelbuddy.ui.login.LoginActivity;
-import com.and.travelbuddy.ui.main.MainActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 

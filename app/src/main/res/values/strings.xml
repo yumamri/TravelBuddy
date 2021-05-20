@@ -38,6 +38,7 @@
     <string name="failed_trips_update">Failed to update trip</string>
     <string name="sign_in_cancelled">Sign in cancelled</string>
     <string name="update">Refresh the changes by clicking on other tabs</string>
+    <string name="dialog_checklist_title">Add an item to the checklist</string>
 
     <string-array name="category_array">
         <item>ID</item>
