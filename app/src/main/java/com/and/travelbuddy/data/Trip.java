@@ -11,7 +11,7 @@ public class Trip implements Serializable {
     private String date;
     private String image;
     private ArrayList<Checklist> checklist = new ArrayList<>();
-    private ArrayList<Document> documentArrayList;
+    private ArrayList<Document> documents = new ArrayList<>();
 
     public Trip() {
     }
@@ -62,5 +62,13 @@ public class Trip implements Serializable {
 
     public void setChecklist(ArrayList<Checklist> checklist) {
         this.checklist = checklist;
+    }
+
+    public ArrayList<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(ArrayList<Document> documents) {
+        this.documents = documents;
     }
 }

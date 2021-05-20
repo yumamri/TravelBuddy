@@ -39,6 +39,8 @@
     <string name="sign_in_cancelled">Sign in cancelled</string>
     <string name="update">Refresh the changes by clicking on other tabs</string>
     <string name="dialog_checklist_title">Add an item to the checklist</string>
+    <string name="dialog_trip_document_title">Choose a document</string>
+    <string name="dialog_trip_document_notice">If a document does not exist, add it in the document tab</string>
 
     <string-array name="category_array">
         <item>ID</item>

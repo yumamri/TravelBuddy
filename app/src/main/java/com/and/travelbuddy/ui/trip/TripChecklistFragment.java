@@ -183,6 +183,7 @@ public class TripChecklistFragment extends Fragment implements TripChecklistDial
         valueEventListener = databaseReference.child(tripKey).child("Checklists").child(checklist.getKey()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "onDataChange:" + dataSnapshot.getKey());
                 Map<String, Object> postValues = new HashMap<String, Object>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     postValues.put(snapshot.getKey(), snapshot.getValue());
